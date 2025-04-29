@@ -3,7 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  
+      - main
+
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
@@ -13,18 +17,41 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Dioxus
-        uses: taiki-e/install-action@cargo-binstall
-        with:
-          tool: dioxus-cli
+      - name: Install cargo-binstall
+        run: |
+          curl -LsSf https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-gnu.tar.gz | tar xz -C ~/.cargo/bin
+
+      - name: Install dioxus-cli (dx)
+        run: |
+          cargo binstall dioxus-cli --no-confirm
 
       - name: Build Dioxus site
         run: |
           dx build --release
+          
+      # Debug step to see where files are
+      - name: Debug - List files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "\nContents of current directory:"
+          ls -la
+          echo "\nContents of dist directory (if it exists):"
+          ls -la dist || echo "No dist directory"
+          echo "\nContents of target/release directory (if it exists):"
+          ls -la target/release || echo "No target/release directory"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/release/public
+          # Let's try the dist directory instead
+          publish_dir: ./dist
           cname: harnesslabs.xyz
+
+      # Debug step to verify gh-pages content
+      - name: Debug - Check gh-pages content
+        run: |
+          git checkout gh-pages
+          echo "Contents of gh-pages branch:"
+          ls -la
