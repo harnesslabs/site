@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main  
-  pull_request:
-    branches:
-      - main  # temp
 
 jobs:
   build-and-deploy:
@@ -16,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install taplo
+      - name: Install Dioxus
         uses: taiki-e/install-action@cargo-binstall
         with:
           tool: dioxus-cli
