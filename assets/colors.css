@@ -1,0 +1,51 @@
+:root {
+    /* Greyscale palette */
+    --grey-900: #181a20;
+    --grey-800: #23262e;
+    --grey-700: #353945;
+    --grey-600: #4b5162;
+    --grey-500: #6c7386;
+    --grey-400: #a1a7bb;
+    --grey-300: #c7ccdb;
+    --grey-200: #e3e6ef;
+    --grey-100: #f5f6fa;
+
+    /* Image-inspired palette */
+    --pixel-sky-light: #cbe3ea;
+    --pixel-sky-mid: #a3c6db;
+    --pixel-sky-dark: #6b8bb7;
+    --pixel-blue-light: #8faecb;
+    --pixel-blue-mid: #5c7fa3;
+    --pixel-blue-dark: #2d466b;
+    --pixel-sand: #f3eedc;
+    --pixel-accent: #e6e2c3;
+    --pixel-shadow: #3a4a5a;
+
+    /* Base colors */
+    --color-background: var(--grey-900);
+    --color-text: var(--grey-100);
+    --color-text-secondary: var(--pixel-sky-mid);
+
+    /* UI Elements */
+    --color-border: var(--grey-700);
+    --color-hover: var(--grey-800);
+
+    /* Accent colors */
+    --color-accent-primary: var(--pixel-sky-dark);
+    --color-accent-secondary: var(--pixel-blue-mid);
+
+    /* Interactive states */
+    --color-hover-background: var(--grey-800);
+    --color-hover-text: var(--pixel-sky-light);
+
+    /* Additional UI colors */
+    --color-card-background: var(--grey-800);
+    --color-input-background: var(--grey-800);
+    --color-input-border: var(--grey-700);
+    --color-input-text: var(--grey-200);
+    --color-button-primary: var(--pixel-blue-dark);
+    --color-button-secondary: var(--pixel-shadow);
+    --color-success: #4caf50;
+    --color-error: #f44336;
+    --color-warning: #ff9800;
+}
