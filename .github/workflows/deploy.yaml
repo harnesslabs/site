@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  
 
 jobs:
   build-and-deploy:
@@ -13,13 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install cargo-binstall
-        run: |
-          curl -LsSf https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-gnu.tar.gz | tar xz -C ~/.cargo/bin
-
-      - name: Install dioxus-cli (dx)
-        run: |
-          cargo binstall dioxus-cli --no-confirm
+      - name: Install Dioxus
+        uses: taiki-e/install-action@cargo-binstall
+        with:
+          tool: dioxus-cli
 
       - name: Build Dioxus site
         run: |
