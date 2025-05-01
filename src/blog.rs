@@ -1,7 +1,8 @@
 use dioxus::logger::tracing;
-use dioxus::prelude::*;
 use pulldown_cmark::{html, Options, Parser};
 use serde::Deserialize;
+
+const HELLO_WORLD: &str = include_str!("../content/posts/hello-world.md");
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct FrontMatter {
@@ -11,16 +12,15 @@ pub struct FrontMatter {
 }
 
 #[derive(Debug, Clone)]
-pub struct BlogPost {
+pub struct Post {
     pub id: String,
     pub frontmatter: FrontMatter,
-    pub content: String,
     pub html_content: String,
 }
 
-impl BlogPost {
-    pub fn from_content(id: String, content: String) -> Result<Self, Box<dyn std::error::Error>> {
-        let (frontmatter, markdown) = Self::parse_frontmatter(&content)?;
+impl Post {
+    pub fn from_content(id: String, content: &str) -> Result<Self, Box<dyn std::error::Error>> {
+        let (frontmatter, markdown) = Self::parse_frontmatter(content)?;
 
         let options = Options::empty();
         let parser = Parser::new_ext(&markdown, options);
@@ -28,10 +28,9 @@ impl BlogPost {
         html::push_html(&mut html_output, parser);
 
         tracing::debug!("Loaded post: {}", id);
-        Ok(BlogPost {
+        Ok(Self {
             id,
             frontmatter,
-            content: markdown,
             html_content: html_output,
         })
     }
@@ -51,12 +50,10 @@ impl BlogPost {
     }
 }
 
-pub async fn load_all_posts() -> Result<Vec<BlogPost>, Box<dyn std::error::Error>> {
+pub async fn load_all_posts() -> Result<Vec<Post>, Box<dyn std::error::Error>> {
     let mut posts = Vec::new();
 
-    // Load the hello-world post
-    const HELLO_WORLD: &str = include_str!("../content/posts/hello-world.md");
-    match BlogPost::from_content("hello-world".to_string(), HELLO_WORLD.to_string()) {
+    match Post::from_content("hello-world".to_string(), HELLO_WORLD) {
         Ok(post) => posts.push(post),
         Err(e) => tracing::error!("Error loading post hello-world: {}", e),
     }
@@ -66,8 +63,4 @@ pub async fn load_all_posts() -> Result<Vec<BlogPost>, Box<dyn std::error::Error
 
     tracing::info!("Loaded {} posts", posts.len());
     Ok(posts)
-}
-
-pub fn find_post_by_id<'a>(posts: &'a [BlogPost], id: &str) -> Option<&'a BlogPost> {
-    posts.iter().find(|post| post.id == id)
 }

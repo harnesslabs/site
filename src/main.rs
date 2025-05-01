@@ -1,7 +1,7 @@
 use dioxus::logger::tracing;
 use dioxus::prelude::*;
 mod blog;
-use blog::{find_post_by_id, load_all_posts, BlogPost};
+use blog::{load_all_posts, Post};
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -12,16 +12,17 @@ enum Route {
     #[route("/blog")]
     BlogList {},
     #[route("/blog/:id")]
-    BlogPostComponent { id: String },
+    BlogPost { id: String },
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 const COLORS_CSS: Asset = asset!("/assets/colors.css");
 const BANNER_PNG: Asset = asset!("/assets/banner.png");
-
+const BLOG_CSS: Asset = asset!("/assets/blog.css");
 fn main() {
-    // Initialize logging
+    // Initialize logging only in debug builds
+    #[cfg(debug_assertions)]
     dioxus::logger::init(tracing::Level::DEBUG).expect("Failed to initialize logger");
 
     dioxus::launch(App);
@@ -32,6 +33,7 @@ fn App() -> Element {
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
+        document::Link { rel: "stylesheet", href: BLOG_CSS }
         document::Link { rel: "stylesheet", href: COLORS_CSS }
         Router::<Route> {}
     }
@@ -61,7 +63,7 @@ fn Home() -> Element {
 /// Blog listing page
 #[component]
 pub fn BlogList() -> Element {
-    let mut posts = use_signal(|| Vec::<BlogPost>::new());
+    let mut posts = use_signal(|| Vec::<Post>::new());
 
     use_effect(move || {
         spawn(async move {
@@ -85,7 +87,7 @@ pub fn BlogList() -> Element {
                     for post in posts.read().iter() {
                         div { class: "post-preview",
                             Link {
-                                to: Route::BlogPostComponent {
+                                to: Route::BlogPost {
                                     id: post.id.clone(),
                                 },
                                 h2 { "{post.frontmatter.title}" }
@@ -103,8 +105,8 @@ pub fn BlogList() -> Element {
 
 /// Individual blog post page
 #[component]
-pub fn BlogPostComponent(id: String) -> Element {
-    let mut posts = use_signal(|| Vec::<BlogPost>::new());
+pub fn BlogPost(id: String) -> Element {
+    let mut posts = use_signal(Vec::<Post>::new);
 
     use_effect(move || {
         spawn(async move {
