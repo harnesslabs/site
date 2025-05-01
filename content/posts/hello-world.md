@@ -18,5 +18,5 @@ The mission is simple:
 
 ## Learn More
 
-If you're interested in learning more about us go to our [about page](https://harnesslabs.xyz/about).
+If you're interested in learning more about us go to our [about page](/about).
 Likewise, you can also find us on [GitHub](https://github.com/harnesslabs) and [X](https://x.com/harnesslabs).
