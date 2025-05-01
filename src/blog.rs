@@ -1,7 +1,7 @@
+use dioxus::logger::tracing;
+use dioxus::prelude::*;
 use pulldown_cmark::{html, Options, Parser};
 use serde::Deserialize;
-use std::fs;
-use std::path::Path;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct FrontMatter {
@@ -19,8 +19,7 @@ pub struct BlogPost {
 }
 
 impl BlogPost {
-    pub fn from_file(path: &Path) -> Result<Self, Box<dyn std::error::Error>> {
-        let content = fs::read_to_string(path)?;
+    pub fn from_content(id: String, content: String) -> Result<Self, Box<dyn std::error::Error>> {
         let (frontmatter, markdown) = Self::parse_frontmatter(&content)?;
 
         let options = Options::empty();
@@ -28,13 +27,7 @@ impl BlogPost {
         let mut html_output = String::new();
         html::push_html(&mut html_output, parser);
 
-        // Get the filename without extension as the ID
-        let id = path
-            .file_stem()
-            .and_then(|s| s.to_str())
-            .ok_or("Invalid filename")?
-            .to_string();
-
+        tracing::debug!("Loaded post: {}", id);
         Ok(BlogPost {
             id,
             frontmatter,
@@ -58,21 +51,20 @@ impl BlogPost {
     }
 }
 
-pub fn load_all_posts() -> Result<Vec<BlogPost>, Box<dyn std::error::Error>> {
+pub async fn load_all_posts() -> Result<Vec<BlogPost>, Box<dyn std::error::Error>> {
     let mut posts = Vec::new();
-    let paths = glob::glob("content/posts/*.md")?;
 
-    for path in paths {
-        if let Ok(path) = path {
-            if let Ok(post) = BlogPost::from_file(&path) {
-                posts.push(post);
-            }
-        }
+    // Load the hello-world post
+    const HELLO_WORLD: &str = include_str!("../content/posts/hello-world.md");
+    match BlogPost::from_content("hello-world".to_string(), HELLO_WORLD.to_string()) {
+        Ok(post) => posts.push(post),
+        Err(e) => tracing::error!("Error loading post hello-world: {}", e),
     }
 
     // Sort posts by date in descending order
     posts.sort_by(|a, b| b.frontmatter.date.cmp(&a.frontmatter.date));
 
+    tracing::info!("Loaded {} posts", posts.len());
     Ok(posts)
 }
 

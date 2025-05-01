@@ -1,3 +1,4 @@
+use dioxus::logger::tracing;
 use dioxus::prelude::*;
 mod blog;
 use blog::{find_post_by_id, load_all_posts, BlogPost};
@@ -20,6 +21,9 @@ const COLORS_CSS: Asset = asset!("/assets/colors.css");
 const BANNER_PNG: Asset = asset!("/assets/banner.png");
 
 fn main() {
+    // Initialize logging
+    dioxus::logger::init(tracing::Level::DEBUG).expect("Failed to initialize logger");
+
     dioxus::launch(App);
 }
 
@@ -60,24 +64,34 @@ pub fn BlogList() -> Element {
     let mut posts = use_signal(|| Vec::<BlogPost>::new());
 
     use_effect(move || {
-        if let Ok(loaded_posts) = load_all_posts() {
-            posts.set(loaded_posts);
-        }
+        spawn(async move {
+            match load_all_posts().await {
+                Ok(loaded_posts) => {
+                    tracing::info!("Successfully loaded {} posts", loaded_posts.len());
+                    posts.set(loaded_posts);
+                }
+                Err(e) => tracing::error!("Error loading posts: {}", e),
+            }
+        });
     });
 
     rsx! {
         div { id: "blog-list",
             h1 { "Blog Posts" }
-            div { class: "posts-grid",
-                for post in posts.read().iter() {
-                    div { class: "post-preview",
-                        Link {
-                            to: Route::BlogPostComponent {
-                                id: post.id.clone(),
-                            },
-                            h2 { "{post.frontmatter.title}" }
-                            div { class: "post-meta",
-                                "By {post.frontmatter.author} on {post.frontmatter.date}"
+            if posts.read().is_empty() {
+                p { "No blog posts found." }
+            } else {
+                div { class: "posts-grid",
+                    for post in posts.read().iter() {
+                        div { class: "post-preview",
+                            Link {
+                                to: Route::BlogPostComponent {
+                                    id: post.id.clone(),
+                                },
+                                h2 { "{post.frontmatter.title}" }
+                                div { class: "post-meta",
+                                    "By {post.frontmatter.author} on {post.frontmatter.date}"
+                                }
                             }
                         }
                     }
@@ -93,9 +107,15 @@ pub fn BlogPostComponent(id: String) -> Element {
     let mut posts = use_signal(|| Vec::<BlogPost>::new());
 
     use_effect(move || {
-        if let Ok(loaded_posts) = load_all_posts() {
-            posts.set(loaded_posts);
-        }
+        spawn(async move {
+            match load_all_posts().await {
+                Ok(loaded_posts) => {
+                    tracing::info!("Successfully loaded {} posts", loaded_posts.len());
+                    posts.set(loaded_posts);
+                }
+                Err(e) => tracing::error!("Error loading posts: {}", e),
+            }
+        });
     });
 
     let post = posts.read().iter().find(|p| p.id == id).cloned();
