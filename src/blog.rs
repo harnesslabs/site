@@ -1,57 +1,25 @@
-use dioxus::logger::tracing;
-use dioxus::prelude::*;
+use super::*;
 use include_dir::{include_dir, Dir};
-use pulldown_cmark::{html, Options, Parser};
-use serde::Deserialize;
 
-use crate::Route;
+use crate::{post::MarkdownContent, Route};
 
 // Include all markdown files from the content/posts directory
 static POSTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/posts");
 
-#[derive(Debug, Deserialize, Clone)]
-pub struct FrontMatter {
-    pub title: String,
-    pub date: String,
-    pub author: String,
-}
-
 #[derive(Debug, Clone)]
 pub struct Post {
     pub id: String,
-    pub frontmatter: FrontMatter,
-    pub html_content: String,
+    pub content: MarkdownContent,
 }
 
 impl Post {
     pub fn from_content(id: String, content: &str) -> Result<Self, Box<dyn std::error::Error>> {
-        let (frontmatter, markdown) = Self::parse_frontmatter(content)?;
-
-        let options = Options::empty();
-        let parser = Parser::new_ext(&markdown, options);
-        let mut html_output = String::new();
-        html::push_html(&mut html_output, parser);
-
+        let markdown_content = MarkdownContent::from_markdown(content)?;
         tracing::debug!("Loaded post: {}", id);
         Ok(Self {
             id,
-            frontmatter,
-            html_content: html_output,
+            content: markdown_content,
         })
-    }
-
-    fn parse_frontmatter(
-        content: &str,
-    ) -> Result<(FrontMatter, String), Box<dyn std::error::Error>> {
-        let mut parts = content.splitn(3, "---");
-        parts.next(); // Skip the first empty part
-
-        let frontmatter_str = parts.next().ok_or("No frontmatter found")?;
-        let markdown = parts.next().ok_or("No markdown content found")?;
-
-        let frontmatter: FrontMatter = serde_yaml::from_str(frontmatter_str)?;
-
-        Ok((frontmatter, markdown.trim().to_string()))
     }
 }
 
@@ -86,7 +54,7 @@ pub async fn load_all_posts() -> Result<Vec<Post>, Box<dyn std::error::Error>> {
     }
 
     // Sort posts by date in descending order
-    posts.sort_by(|a, b| b.frontmatter.date.cmp(&a.frontmatter.date));
+    posts.sort_by(|a, b| b.content.frontmatter.date.cmp(&a.content.frontmatter.date));
 
     tracing::info!("Loaded {} posts", posts.len());
     Ok(posts)
@@ -122,9 +90,9 @@ pub fn BlogList() -> Element {
                                 to: Route::BlogPost {
                                     id: post.id.clone(),
                                 },
-                                h2 { "{post.frontmatter.title}" }
+                                h2 { "{post.content.frontmatter.title}" }
                                 div { class: "post-meta",
-                                    "By {post.frontmatter.author} on {post.frontmatter.date}"
+                                    "By {post.content.frontmatter.author} on {post.content.frontmatter.date}"
                                 }
                             }
                         }
@@ -157,11 +125,13 @@ pub fn BlogPost(id: String) -> Element {
     rsx! {
         div { id: "blog",
             if let Some(post) = post {
-                h1 { "{post.frontmatter.title}" }
-                div { class: "post-meta", "By {post.frontmatter.author} on {post.frontmatter.date}" }
+                h1 { "{post.content.frontmatter.title}" }
+                div { class: "post-meta",
+                    "By {post.content.frontmatter.author} on {post.content.frontmatter.date}"
+                }
                 div {
                     class: "post-content",
-                    dangerous_inner_html: "{post.html_content}",
+                    dangerous_inner_html: "{post.content.html_content}",
                 }
             } else {
                 h1 { "Post not found" }

@@ -2,8 +2,10 @@ use dioxus::logger::tracing;
 use dioxus::prelude::*;
 mod about;
 mod blog;
+mod post;
+
 use about::About;
-use blog::{load_all_posts, BlogList, BlogPost, Post};
+use blog::{BlogList, BlogPost};
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
