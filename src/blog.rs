@@ -1,7 +1,10 @@
 use dioxus::logger::tracing;
+use dioxus::prelude::*;
 use include_dir::{include_dir, Dir};
 use pulldown_cmark::{html, Options, Parser};
 use serde::Deserialize;
+
+use crate::Route;
 
 // Include all markdown files from the content/posts directory
 static POSTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/posts");
@@ -87,4 +90,87 @@ pub async fn load_all_posts() -> Result<Vec<Post>, Box<dyn std::error::Error>> {
 
     tracing::info!("Loaded {} posts", posts.len());
     Ok(posts)
+}
+
+/// Blog listing page
+#[component]
+pub fn BlogList() -> Element {
+    let mut posts = use_signal(|| Vec::<Post>::new());
+
+    use_effect(move || {
+        spawn(async move {
+            match load_all_posts().await {
+                Ok(loaded_posts) => {
+                    tracing::info!("Successfully loaded {} posts", loaded_posts.len());
+                    posts.set(loaded_posts);
+                }
+                Err(e) => tracing::error!("Error loading posts: {}", e),
+            }
+        });
+    });
+
+    rsx! {
+        div { id: "blog-list",
+            h1 { "Blog Posts" }
+            if posts.read().is_empty() {
+                p { "No blog posts found." }
+            } else {
+                div { class: "posts-grid",
+                    for post in posts.read().iter() {
+                        div { class: "post-preview",
+                            Link {
+                                to: Route::BlogPost {
+                                    id: post.id.clone(),
+                                },
+                                h2 { "{post.frontmatter.title}" }
+                                div { class: "post-meta",
+                                    "By {post.frontmatter.author} on {post.frontmatter.date}"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/// Individual blog post page
+#[component]
+pub fn BlogPost(id: String) -> Element {
+    let mut posts = use_signal(Vec::<Post>::new);
+
+    use_effect(move || {
+        spawn(async move {
+            match load_all_posts().await {
+                Ok(loaded_posts) => {
+                    tracing::info!("Successfully loaded {} posts", loaded_posts.len());
+                    posts.set(loaded_posts);
+                }
+                Err(e) => tracing::error!("Error loading posts: {}", e),
+            }
+        });
+    });
+
+    let post = posts.read().iter().find(|p| p.id == id).cloned();
+
+    rsx! {
+        div { id: "blog",
+            if let Some(post) = post {
+                h1 { "{post.frontmatter.title}" }
+                div { class: "post-meta", "By {post.frontmatter.author} on {post.frontmatter.date}" }
+                div {
+                    class: "post-content",
+                    dangerous_inner_html: "{post.html_content}",
+                }
+            } else {
+                h1 { "Post not found" }
+                p { "The requested blog post does not exist." }
+            }
+
+            div { class: "blog-navigation",
+                Link { to: Route::BlogList {}, "← Back to Blog" }
+            }
+        }
+    }
 }

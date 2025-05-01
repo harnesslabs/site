@@ -1,7 +1,9 @@
 use dioxus::logger::tracing;
 use dioxus::prelude::*;
+mod about;
 mod blog;
-use blog::{load_all_posts, Post};
+use about::About;
+use blog::{load_all_posts, BlogList, BlogPost, Post};
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -13,6 +15,8 @@ enum Route {
     BlogList {},
     #[route("/blog/:id")]
     BlogPost { id: String },
+    #[route("/about")]
+    About {},
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
@@ -60,89 +64,6 @@ fn Home() -> Element {
     }
 }
 
-/// Blog listing page
-#[component]
-pub fn BlogList() -> Element {
-    let mut posts = use_signal(|| Vec::<Post>::new());
-
-    use_effect(move || {
-        spawn(async move {
-            match load_all_posts().await {
-                Ok(loaded_posts) => {
-                    tracing::info!("Successfully loaded {} posts", loaded_posts.len());
-                    posts.set(loaded_posts);
-                }
-                Err(e) => tracing::error!("Error loading posts: {}", e),
-            }
-        });
-    });
-
-    rsx! {
-        div { id: "blog-list",
-            h1 { "Blog Posts" }
-            if posts.read().is_empty() {
-                p { "No blog posts found." }
-            } else {
-                div { class: "posts-grid",
-                    for post in posts.read().iter() {
-                        div { class: "post-preview",
-                            Link {
-                                to: Route::BlogPost {
-                                    id: post.id.clone(),
-                                },
-                                h2 { "{post.frontmatter.title}" }
-                                div { class: "post-meta",
-                                    "By {post.frontmatter.author} on {post.frontmatter.date}"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-/// Individual blog post page
-#[component]
-pub fn BlogPost(id: String) -> Element {
-    let mut posts = use_signal(Vec::<Post>::new);
-
-    use_effect(move || {
-        spawn(async move {
-            match load_all_posts().await {
-                Ok(loaded_posts) => {
-                    tracing::info!("Successfully loaded {} posts", loaded_posts.len());
-                    posts.set(loaded_posts);
-                }
-                Err(e) => tracing::error!("Error loading posts: {}", e),
-            }
-        });
-    });
-
-    let post = posts.read().iter().find(|p| p.id == id).cloned();
-
-    rsx! {
-        div { id: "blog",
-            if let Some(post) = post {
-                h1 { "{post.frontmatter.title}" }
-                div { class: "post-meta", "By {post.frontmatter.author} on {post.frontmatter.date}" }
-                div {
-                    class: "post-content",
-                    dangerous_inner_html: "{post.html_content}",
-                }
-            } else {
-                h1 { "Post not found" }
-                p { "The requested blog post does not exist." }
-            }
-
-            div { class: "blog-navigation",
-                Link { to: Route::BlogList {}, "← Back to Blog" }
-            }
-        }
-    }
-}
-
 /// Shared navbar component.
 #[component]
 fn Navbar() -> Element {
@@ -150,6 +71,7 @@ fn Navbar() -> Element {
         div { id: "navbar",
             Link { to: Route::Home {}, "Home" }
             Link { to: Route::BlogList {}, "Blog" }
+            Link { to: Route::About {}, "About" }
         }
 
         Outlet::<Route> {}
