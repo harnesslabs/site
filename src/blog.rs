@@ -4,7 +4,7 @@ use pulldown_cmark::{html, Options, Parser};
 use serde::Deserialize;
 
 // Include all markdown files from the content/posts directory
-static POSTS_DIR: Dir = include_dir!("content/posts");
+static POSTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/posts");
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct FrontMatter {
@@ -55,8 +55,14 @@ impl Post {
 pub async fn load_all_posts() -> Result<Vec<Post>, Box<dyn std::error::Error>> {
     let mut posts = Vec::new();
 
+    tracing::debug!(
+        "Found {} files in posts directory",
+        POSTS_DIR.files().count()
+    );
+
     // Iterate over all files in the posts directory
     for file in POSTS_DIR.files() {
+        tracing::debug!("Processing file: {:?}", file.path());
         if let Some(ext) = file.path().extension() {
             if ext == "md" {
                 let id = file
