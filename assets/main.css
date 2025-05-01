@@ -62,7 +62,9 @@ body {
 
 /* Blog page */
 #blog {
-    margin-top: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
 }
 
 #blog a {
