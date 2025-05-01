@@ -142,3 +142,53 @@ body {
 .post-content a:hover {
     text-decoration: underline;
 }
+
+#blog-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.posts-grid {
+    display: grid;
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.post-preview {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-preview:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-preview h2 {
+    margin: 0;
+    margin-bottom: 0.5em;
+    color: var(--color-text);
+}
+
+.post-preview .post-meta {
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+.blog-navigation {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid var(--color-border);
+}
+
+.blog-navigation a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.blog-navigation a:hover {
+    text-decoration: underline;
+}

@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 mod blog;
-use blog::{load_all_posts, BlogPost};
+use blog::{find_post_by_id, load_all_posts, BlogPost};
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -8,8 +8,10 @@ enum Route {
     #[layout(Navbar)]
     #[route("/")]
     Home {},
+    #[route("/blog")]
+    BlogList {},
     #[route("/blog/:id")]
-    Blog { id: i32 },
+    BlogPostComponent { id: String },
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
@@ -52,9 +54,9 @@ fn Home() -> Element {
     }
 }
 
-/// Blog page
+/// Blog listing page
 #[component]
-pub fn Blog(id: i32) -> Element {
+pub fn BlogList() -> Element {
     let mut posts = use_signal(|| Vec::<BlogPost>::new());
 
     use_effect(move || {
@@ -63,7 +65,40 @@ pub fn Blog(id: i32) -> Element {
         }
     });
 
-    let post = posts.read().get(id as usize - 1).cloned();
+    rsx! {
+        div { id: "blog-list",
+            h1 { "Blog Posts" }
+            div { class: "posts-grid",
+                for post in posts.read().iter() {
+                    div { class: "post-preview",
+                        Link {
+                            to: Route::BlogPostComponent {
+                                id: post.id.clone(),
+                            },
+                            h2 { "{post.frontmatter.title}" }
+                            div { class: "post-meta",
+                                "By {post.frontmatter.author} on {post.frontmatter.date}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/// Individual blog post page
+#[component]
+pub fn BlogPostComponent(id: String) -> Element {
+    let mut posts = use_signal(|| Vec::<BlogPost>::new());
+
+    use_effect(move || {
+        if let Ok(loaded_posts) = load_all_posts() {
+            posts.set(loaded_posts);
+        }
+    });
+
+    let post = posts.read().iter().find(|p| p.id == id).cloned();
 
     rsx! {
         div { id: "blog",
@@ -79,15 +114,8 @@ pub fn Blog(id: i32) -> Element {
                 p { "The requested blog post does not exist." }
             }
 
-            // Navigation links
-            if id > 1 {
-                Link { to: Route::Blog { id: id - 1 }, "Previous" }
-                span { " | " }
-            }
-            Link { to: Route::Home {}, "Home" }
-            if id < posts.read().len() as i32 {
-                span { " | " }
-                Link { to: Route::Blog { id: id + 1 }, "Next" }
+            div { class: "blog-navigation",
+                Link { to: Route::BlogList {}, "← Back to Blog" }
             }
         }
     }
@@ -99,7 +127,7 @@ fn Navbar() -> Element {
     rsx! {
         div { id: "navbar",
             Link { to: Route::Home {}, "Home" }
-            Link { to: Route::Blog { id: 1 }, "Blog" }
+            Link { to: Route::BlogList {}, "Blog" }
         }
 
         Outlet::<Route> {}

@@ -12,6 +12,7 @@ pub struct FrontMatter {
 
 #[derive(Debug, Clone)]
 pub struct BlogPost {
+    pub id: String,
     pub frontmatter: FrontMatter,
     pub content: String,
     pub html_content: String,
@@ -27,7 +28,15 @@ impl BlogPost {
         let mut html_output = String::new();
         html::push_html(&mut html_output, parser);
 
+        // Get the filename without extension as the ID
+        let id = path
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .ok_or("Invalid filename")?
+            .to_string();
+
         Ok(BlogPost {
+            id,
             frontmatter,
             content: markdown,
             html_content: html_output,
@@ -65,4 +74,8 @@ pub fn load_all_posts() -> Result<Vec<BlogPost>, Box<dyn std::error::Error>> {
     posts.sort_by(|a, b| b.frontmatter.date.cmp(&a.frontmatter.date));
 
     Ok(posts)
+}
+
+pub fn find_post_by_id<'a>(posts: &'a [BlogPost], id: &str) -> Option<&'a BlogPost> {
+    posts.iter().find(|post| post.id == id)
 }
