@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import AboutSeperator from "./_componets/about-seperator";
 
 export default function About() {
   const teamMembers = [
@@ -13,6 +14,7 @@ export default function About() {
       name: "Waylon Jepsen, MS",
       link: "https://x.com/0xjepsen",
     },
+    { name: "Parker Smith", link: "https://x.com/parkersm1th" },
     { name: "Virtual...", link: "https://x.com/virtual_jpeg" },
     { name: "Homie...", link: "https://x.com/homieomorphism" },
   ];
@@ -45,7 +47,7 @@ export default function About() {
   ];
 
   return (
-    <div className="flex flex-grow flex-col items-center bg-white text-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-grow flex-col items-center bg-white text-gray-800 py-20 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-16">
         {/* About Harness Labs Section */}
         <section className="text-center">
@@ -66,6 +68,8 @@ export default function About() {
             </p>
           </div>
         </section>
+
+        <AboutSeperator />
 
         {/* Our Values Section */}
         <section className="py-12">
@@ -105,7 +109,7 @@ export default function About() {
               </h2>
             </div>
             <div className="md:w-2/3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 font-semibold">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 mx-20 sm:mx-0 font-semibold">
                 {teamMembers.map((member) => (
                   <a
                     key={member.name}
@@ -129,7 +133,7 @@ export default function About() {
             <h2 className="text-4xl sm:text-5xl Harness Labsfont-bold mb-4">
               Contact
             </h2>
-            <p className="text-lg text-gray-700 mb-8">
+            <p className="text-lg text-gray-700 mb-8 text-left text-justify">
               Get involved by contributing to our open source projects,
               participating in community discussions, and attending events. Have
               questions or want to connect?
