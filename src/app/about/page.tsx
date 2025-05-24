@@ -46,7 +46,7 @@ export default function About() {
   ];
 
   return (
-    <div className="flex flex-grow flex-col items-center bg-white text-gray-800 py-20 px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-grow flex-col items-center text-gray-800 py-20 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-16">
         {/* About Harness Labs Section */}
         <section className="text-center">
