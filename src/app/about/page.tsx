@@ -130,9 +130,7 @@ export default function About() {
         {/* Contact Us CTA Section */}
         <section className="py-16 text-center bg-gray-50 rounded-lg">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-4xl sm:text-5xl Harness Labsfont-bold mb-4">
-              Contact
-            </h2>
+            <h2 className="text-4xl sm:text-5xl mb-4">Contact</h2>
             <p className="text-lg text-gray-700 mb-8 text-left text-justify mx-8 md:mx-0">
               Get involved by contributing to our open source projects,
               participating in community discussions, and attending events. Have

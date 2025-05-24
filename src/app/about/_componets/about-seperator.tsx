@@ -29,7 +29,7 @@ export default function AboutSeparator() {
           cy="160"
           r="40"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
         />
         <circle
@@ -37,7 +37,7 @@ export default function AboutSeparator() {
           cy="80"
           r="20"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
         />
         <circle
@@ -45,15 +45,15 @@ export default function AboutSeparator() {
           cy="140"
           r="30"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
         />
         <circle
           cx="570"
           cy="25"
           r="7"
-          fill="black"
-          stroke="black"
+          fill="currentColor"
+          stroke="currentColor"
           strokeWidth="2"
         />
 
@@ -63,7 +63,7 @@ export default function AboutSeparator() {
           width="50"
           height="50"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
           transform="rotate(25, 205, 75)"
         />
@@ -73,7 +73,7 @@ export default function AboutSeparator() {
           width="70"
           height="70"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
           transform="rotate(-30, 610, 200)"
         />
@@ -83,7 +83,7 @@ export default function AboutSeparator() {
           width="30"
           height="30"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
           transform="rotate(-5, 480, 0)"
         />
@@ -93,29 +93,29 @@ export default function AboutSeparator() {
           width="40"
           height="80"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
           transform="rotate(20, 300, 160)"
         />
 
         <polygon
           points="50,220 110,220 80,168"
-          fill="black"
-          stroke="black"
+          fill="currentColor"
+          stroke="currentColor"
           strokeWidth="2"
           transform="rotate(5, 90, 203)"
         />
         <polygon
           points="470,100 520,100 495,57"
-          fill="black"
-          stroke="black"
+          fill="currentColor"
+          stroke="currentColor"
           strokeWidth="2"
           transform="rotate(15, 505, 86)"
         />
         <polygon
           points="670,80 760,80 715,5"
           fill="transparent"
-          stroke="black"
+          stroke="currentColor"
           strokeWidth="2"
         />
       </svg>
