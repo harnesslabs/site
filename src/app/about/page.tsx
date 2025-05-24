@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
 import AboutSeperator from "./_componets/about-seperator";
 
 export default function About() {
@@ -69,7 +68,9 @@ export default function About() {
           </div>
         </section>
 
-        <AboutSeperator />
+        <div className="hidden md:block">
+          <AboutSeperator />
+        </div>
 
         {/* Our Values Section */}
         <section className="py-12">
@@ -109,17 +110,16 @@ export default function About() {
               </h2>
             </div>
             <div className="md:w-2/3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 mx-20 sm:mx-0 font-semibold">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 mx-16 sm:mx-0 font-semibold">
                 {teamMembers.map((member) => (
                   <a
                     key={member.name}
                     href={member.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xl group border-t pt-2 text-center md:text-left cursor-pointer transition-colors duration-200 hover:text-blue-600 flex items-center justify-center md:justify-start gap-2"
+                    className="text-xl pl-0 md:pl-4 group border-t pt-2 text-center md:text-left cursor-pointer transition-colors duration-200 hover:text-blue-600 flex items-center justify-center md:justify-start gap-2"
                   >
                     <span>{member.name}</span>
-                    <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                   </a>
                 ))}
               </div>
@@ -133,7 +133,7 @@ export default function About() {
             <h2 className="text-4xl sm:text-5xl Harness Labsfont-bold mb-4">
               Contact
             </h2>
-            <p className="text-lg text-gray-700 mb-8 text-left text-justify">
+            <p className="text-lg text-gray-700 mb-8 text-left text-justify mx-8 md:mx-0">
               Get involved by contributing to our open source projects,
               participating in community discussions, and attending events. Have
               questions or want to connect?
