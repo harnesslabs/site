@@ -9,7 +9,7 @@ export function Footer() {
       <div className="container mx-auto h-16 flex items-center justify-center space-x-2">
         <Link href="https://harnesslabs.xyz" target="_blank" rel="noreferrer">
           <div className="text-md pr-2">
-            © {new Date().getFullYear()} {siteConfig.company}
+            © {new Date().getFullYear()} {siteConfig.name}
           </div>
         </Link>
         <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">

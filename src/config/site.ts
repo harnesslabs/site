@@ -6,14 +6,16 @@ interface NavItem {
 }
 
 export const siteConfig = {
-  name: "",
+  name: "Harness Labs",
   description: "coming soon...",
   main: "https://harnesslabs.xyz",
-  company: "harnesslabs",
-  nav: [{ href: "/about", label: "About" }] as NavItem[],
+  nav: [
+    { href: "/about", label: "About" },
+    { href: "https://github.com/harnesslabs", label: "GitHub" },
+  ] as NavItem[],
   links: {
-    github: "https://github.com/harnesslabs",
     company: "https://harnesslabs.xyz",
-    x: "https://x.com/harnesslabsdev",
+    github: "https://github.com/harnesslabs",
+    x: "https://x.com/harnesslabs",
   },
 };

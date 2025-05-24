@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 export function Header() {
   return (
     <header className="block bg-background top-0 z-40 border-b dark:border-b-neutral-600">
-      <div className="mx-auto px-6 flex h-16 items-center justify-between">
+      <div className="mx-auto px-8 flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Icons.logo className="h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>

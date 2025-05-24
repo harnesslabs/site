@@ -52,19 +52,17 @@ export default function About() {
           <p className="text-sm text-gray-500 uppercase tracking-wider mb-2">
             Harness Labs
           </p>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-12">Who are we?</h1>
+          <h1 className="text-4xl sm:text-5xl mb-12">Who are we?</h1>
           <div className="max-w-3xl mx-auto space-y-4 text-lg text-left text-justify text-gray-700">
             <p>
               We are a technology organization dedicated to building innovative
-              software solutions grounded in mathematical principles. We believe
-              that mathematics is not just a tool, but the very foundation upon
-              which all meaningful technology is built.
-            </p>
-            <p>
-              We envision a world where mathematical thinking is at the
-              forefront of software development, where elegant solutions are
-              preferred over brute force approaches, and where technology serves
-              to enhance human understanding rather than replace it.
+              software solutions grounded in mathematical principles. For us,
+              mathematics is more than a tool&mdash;it is the foundation upon
+              which all meaningful technology is built.{" "}
+              <b>This is our vision</b>: to center mathematical thinking in
+              software development, where elegant solutions are preferred over
+              brute force approaches, and where technology serves to enhance
+              human understanding rather than replace it.
             </p>
           </div>
         </section>
@@ -73,7 +71,7 @@ export default function About() {
         <section className="py-12">
           <div className="mx-auto flex flex-col md:flex-row md:space-x-8">
             <div className="md:w-1/3 mb-10 md:mb-0">
-              <h2 className="text-3xl sm:text-4xl Harness Labsfont-bold text-center md:text-left">
+              <h2 className="text-4xl sm:text-5xl text-center md:text-left">
                 Our values
               </h2>
             </div>
@@ -102,7 +100,7 @@ export default function About() {
         <section className="py-12">
           <div className="mx-auto flex flex-col md:flex-row md:space-x-8">
             <div className="md:w-1/3 mb-10 md:mb-0">
-              <h2 className="text-3xl sm:text-4xl Harness Labsfont-bold text-center md:text-left">
+              <h2 className="text-4xl sm:text-5xl text-center md:text-left">
                 Our team
               </h2>
             </div>
@@ -128,7 +126,7 @@ export default function About() {
         {/* Contact Us CTA Section */}
         <section className="py-16 text-center bg-gray-50 rounded-lg">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl Harness Labsfont-bold mb-4">
+            <h2 className="text-4xl sm:text-5xl Harness Labsfont-bold mb-4">
               Contact
             </h2>
             <p className="text-lg text-gray-700 mb-8">
