@@ -34,7 +34,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark">
           <div className="flex flex-col min-h-dvh">
             <Header />
-            <main className="flex flex-col flex-grow container mx-auto px-4 max-w-4xl h-full my-8">
+            <main className="flex flex-col flex-grow container mx-auto max-w-7xl h-full my-8">
               {children}
             </main>
             <Footer />

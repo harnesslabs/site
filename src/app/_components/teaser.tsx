@@ -6,7 +6,7 @@ export default function Teaser() {
   const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(false);
 
-  const textToType = "harnesslabs";
+  const textToType = "Harness\u2002Labs";
   const typingSpeed = 80;
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function Teaser() {
       <style jsx>{`
         .blink {
           display: inline-block;
-          margin-left: 0.4em;
+          margin-left: 0.45em;
           margin-bottom: -2px;
           width: 2px;
           height: 0.8em;

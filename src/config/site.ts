@@ -10,7 +10,7 @@ export const siteConfig = {
   description: "coming soon...",
   main: "https://harnesslabs.xyz",
   company: "harnesslabs",
-  nav: [{ href: "/team", label: "Team" }] as NavItem[],
+  nav: [{ href: "/about", label: "About" }] as NavItem[],
   links: {
     github: "https://github.com/harnesslabs",
     company: "https://harnesslabs.xyz",
