@@ -17,7 +17,7 @@ const redHatMono = Red_Hat_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "harnesslabs",
+  title: "Harness Labs",
   description: "coming soon...",
 };
 
