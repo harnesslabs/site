@@ -14,8 +14,6 @@ export default function About() {
       link: "https://x.com/0xjepsen",
     },
     { name: "Parker Smith", link: "https://x.com/parkersm1th" },
-    { name: "Virtual...", link: "https://x.com/virtual_jpeg" },
-    { name: "Homie...", link: "https://x.com/homieomorphism" },
   ];
 
   const values = [
