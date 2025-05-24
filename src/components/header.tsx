@@ -15,14 +15,13 @@ export function Header() {
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
         <nav className="flex items-center space-x-1">
-          {siteConfig.nav
-            .map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button variant="ghost" className="px-2">
-                  {item.label}
-                </Button>
-              </Link>
-            ))}
+          {siteConfig.nav.map((item) => (
+            <Link key={item.href} href={item.href}>
+              <Button variant="ghost" className="px-2">
+                {item.label}
+              </Button>
+            </Link>
+          ))}
         </nav>
       </div>
     </header>
