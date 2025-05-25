@@ -31,5 +31,6 @@
       "rule": "*",
       "severity": "warn"
     }
-  ]
+  ],
+  "cSpell.words": ["Cova", "Vietoris"]
 }

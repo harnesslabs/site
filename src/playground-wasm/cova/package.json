@@ -1,0 +1,19 @@
+{
+  "name": "vietoris-web-demo",
+  "type": "module",
+  "collaborators": [
+    "Harness Labs"
+  ],
+  "description": "Interactive Vietoris-Rips Complex Demo using cova",
+  "version": "0.1.0",
+  "files": [
+    "vietoris_web_demo_bg.wasm",
+    "vietoris_web_demo.js",
+    "vietoris_web_demo.d.ts"
+  ],
+  "main": "vietoris_web_demo.js",
+  "types": "vietoris_web_demo.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

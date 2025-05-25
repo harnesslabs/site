@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import AboutSeparator from "./_components/about-separator";
-import { teamMembers, companyValues } from "@/data";
+import { companyValues, teamMembers } from "@/data";
 import type { Metadata } from "next";
+import AboutSeparator from "./_components/about-separator";
 
 export const metadata: Metadata = {
   title: "Harness Labs | About",
@@ -32,7 +32,7 @@ function HeroSection() {
     <section className="text-center">
       <p className="text-sm text-muted-foreground uppercase tracking-wider mb-2">Harness Labs</p>
       <h1 className="text-4xl sm:text-5xl mb-12">Who are we?</h1>
-      <div className="max-w-3xl mx-auto space-y-4 text-lg text-left text-justify text-foreground">
+      <div className="max-w-3xl mx-auto space-y-4 text-lg text-justify text-foreground">
         <p>
           We are a technology organization dedicated to building innovative software solutions
           grounded in mathematical principles. For us, mathematics is more than a tool&mdash;it is
@@ -110,7 +110,7 @@ function ContactSection() {
     >
       <div className="max-w-2xl mx-auto">
         <h2 className="text-4xl sm:text-5xl mb-4">Contact</h2>
-        <p className="text-lg text-muted-foreground mb-8 text-left text-justify mx-8 md:mx-0">
+        <p className="text-lg text-muted-foreground mb-8 text-justify mx-8 md:mx-0">
           Get involved by contributing to our open source projects, participating in community
           discussions, and attending events. Have questions or want to connect?
         </p>

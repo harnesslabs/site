@@ -1,4 +1,35 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 export default function AboutSeparator() {
+  const rotatingTriangleRef = useRef<SVGPolygonElement>(null);
+  const [rotation, setRotation] = useState(0);
+
+  const triangleCenterX = 495;
+  const triangleCenterY = 257 / 3;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const newRotation = window.scrollY / 5;
+      setRotation(newRotation);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (rotatingTriangleRef.current) {
+      rotatingTriangleRef.current.setAttribute(
+        "transform",
+        `rotate(${rotation}, ${triangleCenterX}, ${triangleCenterY})`
+      );
+    }
+  }, [rotation, triangleCenterY]);
+
   return (
     <div className="max-w-3xl mx-auto">
       <svg className="w-full" viewBox="0 0 770 240" xmlns="http://www.w3.org/2000/svg">
@@ -26,14 +57,14 @@ export default function AboutSeparator() {
         <circle cx="570" cy="25" r="7" fill="currentColor" stroke="currentColor" strokeWidth="2" />
 
         <rect
-          x="170"
-          y="20"
+          x="200"
+          y="80"
           width="50"
           height="50"
           fill="transparent"
           stroke="currentColor"
           strokeWidth="2"
-          transform="rotate(25, 205, 75)"
+          transform="rotate(120, 205, 100)"
         />
         <rect
           x="603"
@@ -74,11 +105,11 @@ export default function AboutSeparator() {
           transform="rotate(5, 90, 203)"
         />
         <polygon
+          ref={rotatingTriangleRef}
           points="470,100 520,100 495,57"
           fill="currentColor"
           stroke="currentColor"
           strokeWidth="2"
-          transform="rotate(15, 505, 86)"
         />
         <polygon
           points="670,80 760,80 715,5"
