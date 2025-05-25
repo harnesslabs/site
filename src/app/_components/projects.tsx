@@ -23,7 +23,7 @@ export default function Projects() {
               through exploration rooted in theory and driven by practice. See our work below!
             </p>
             <div className="mt-4">
-              <Link href="/about" className="group relative inline-block">
+              <Link href="/playground" className="group relative inline-block">
                 {/* Subtle outer glow */}
                 <div className="absolute inset-0 rounded-xl opacity-30 blur-md scale-105">
                   <div className="h-full w-full rounded-xl bg-gradient-to-r from-blue-500/50 via-red-500/50 via-green-500/50 to-green-500/50 animate-gradient-rotate bg-[length:200%_200%]"></div>
