@@ -4,12 +4,7 @@ export type Icon = typeof LucideIcon;
 
 export const Icons = {
   logo: (props: LucideProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
-      viewBox="0 0 110 94"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 110 94" {...props}>
       {/* tilde "wave" */}
       <path
         d="M0 0 C6.93 0 13.86 0 21 0 C21 1.65 21 3.3 21 5 C23.97 5 26.94 5 30 5
@@ -50,12 +45,7 @@ export const Icons = {
     </svg>
   ),
   x: (props: LucideProps) => (
-    <svg
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1200 1227"
-      {...props}
-    >
+    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1227" {...props}>
       <path
         fill="currentColor"
         d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
