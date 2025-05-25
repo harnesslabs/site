@@ -68,7 +68,7 @@ export default function Projects() {
               <CardContent className="p-6">
                 <AnimatedTitle title={project.name} isHovered={hoveredCard === project.name} />
                 <CardDescription className="text-muted-foreground leading-relaxed">
-                  {project.desctiption}
+                  {project.description}
                 </CardDescription>
               </CardContent>
             </Card>
