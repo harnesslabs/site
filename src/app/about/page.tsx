@@ -100,7 +100,15 @@ function TeamSection() {
 
 function ContactSection() {
   return (
-    <section className="py-16 text-center bg-muted rounded-lg">
+    <section
+      className="
+        py-16
+        text-center
+        bg-background
+        rounded-lg
+        contact-shadow
+      "
+    >
       <div className="max-w-2xl mx-auto">
         <h2 className="text-4xl sm:text-5xl mb-4">Contact</h2>
         <p className="text-lg text-muted-foreground mb-8 text-left text-justify mx-8 md:mx-0">
