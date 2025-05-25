@@ -43,11 +43,9 @@ export default function Projects() {
 
   return (
     <section className="py-16 px-4 max-w-7xl mx-auto">
-      <div className="mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-          Research & Development
-        </h2>
-        <p className="text-lg text-muted-foreground max-w-2xl">
+      <div className="">
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground">Research & Development</h2>
+        <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
           Advancing the frontiers of computational mathematics and artificial intelligence through
           exploration rooted in theory and driven by practice. See our work below!
         </p>
@@ -74,7 +72,7 @@ export default function Projects() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
             <Link
