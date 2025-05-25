@@ -11,6 +11,7 @@ export const siteConfig = {
   main: "https://harnesslabs.xyz",
   nav: [
     { href: "/about", label: "About" },
+    { href: "/playground", label: "Play" },
     { href: "https://github.com/harnesslabs", label: "GitHub" },
   ] as NavItem[],
   links: {
