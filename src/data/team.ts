@@ -17,10 +17,6 @@ export const teamMembers: TeamMember[] = [
     link: "https://x.com/_OuterProduct",
   },
   {
-    name: "Waylon Jepsen, MS",
-    link: "https://x.com/0xjepsen",
-  },
-  {
     name: "Parker Smith",
     link: "https://x.com/parkersm1th",
   },
