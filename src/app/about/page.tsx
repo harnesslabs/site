@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="flex flex-grow flex-col items-center text-gray-800 py-20 px-4 sm:px-6 lg:px-8">
+    <main className="flex flex-grow flex-col items-center text-foreground py-20 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-16">
         <HeroSection />
 
@@ -30,9 +30,9 @@ export default function AboutPage() {
 function HeroSection() {
   return (
     <section className="text-center">
-      <p className="text-sm text-gray-500 uppercase tracking-wider mb-2">Harness Labs</p>
+      <p className="text-sm text-muted-foreground uppercase tracking-wider mb-2">Harness Labs</p>
       <h1 className="text-4xl sm:text-5xl mb-12">Who are we?</h1>
-      <div className="max-w-3xl mx-auto space-y-4 text-lg text-left text-justify text-gray-700">
+      <div className="max-w-3xl mx-auto space-y-4 text-lg text-left text-justify text-foreground">
         <p>
           We are a technology organization dedicated to building innovative software solutions
           grounded in mathematical principles. For us, mathematics is more than a tool&mdash;it is
@@ -56,12 +56,12 @@ function ValuesSection() {
         <div className="md:w-2/3 space-y-10">
           {companyValues.map((value) => (
             <article key={value.id} className="flex items-start space-x-6 border-t pt-2">
-              <div className="text-6xl font-bold text-gray-800 w-12 text-left ml-4 mr-8">
+              <div className="text-6xl font-bold text-foreground w-12 text-left ml-4 mr-8">
                 {value.id}
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                <p className="text-gray-700">{value.description}</p>
+                <p className="text-muted-foreground">{value.description}</p>
               </div>
             </article>
           ))}
@@ -100,10 +100,10 @@ function TeamSection() {
 
 function ContactSection() {
   return (
-    <section className="py-16 text-center bg-gray-50 rounded-lg">
+    <section className="py-16 text-center bg-muted rounded-lg">
       <div className="max-w-2xl mx-auto">
         <h2 className="text-4xl sm:text-5xl mb-4">Contact</h2>
-        <p className="text-lg text-gray-700 mb-8 text-left text-justify mx-8 md:mx-0">
+        <p className="text-lg text-muted-foreground mb-8 text-left text-justify mx-8 md:mx-0">
           Get involved by contributing to our open source projects, participating in community
           discussions, and attending events. Have questions or want to connect?
         </p>
