@@ -68,8 +68,8 @@ export default function Projects() {
           </div>
         </div>
       </div>
-      {/* Waterfall separator overlay - positioned absolutely with fixed offset from right */}
-      <div className="hidden lg:block absolute inset-y-0 pointer-events-none z-0 right-8">
+      {/* Waterfall separator overlay*/}
+      <div className="hidden lg:block absolute inset-y-0 pointer-events-none z-0 right-0 pr-8">
         <WaterfallSeparator />
       </div>
     </section>

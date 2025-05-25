@@ -19,19 +19,72 @@ export default function WaterfallSeparator() {
             fill: blue;
           }
         `}</style>
-        <circle cx="10" cy="30" r="5" fill="transparent" stroke="currentColor" strokeWidth="2" />
-        <circle cx="150" cy="100" r="40" fill="transparent" stroke="currentColor" strokeWidth="2" />
-        <circle cx="390" cy="530" r="5" fill="transparent" stroke="currentColor" strokeWidth="2" />
+        <circle cx="15" cy="30" r="10" fill="fill" stroke="currentColor" strokeWidth="2" />
+        <circle cx="160" cy="110" r="60" fill="transparent" stroke="currentColor" strokeWidth="2" />
+        <circle cx="330" cy="300" r="30" fill="transparent" stroke="currentColor" strokeWidth="2" />
 
+        <rect
+          x="200"
+          y="90"
+          width="80"
+          height="80"
+          fill="transparent"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(10, 105, 30)"
+        />
         <rect
           x="90"
           y="80"
           width="50"
           height="50"
-          fill="transparent"
+          fill="fill"
           stroke="currentColor"
           strokeWidth="2"
           transform="rotate(25, 205, 75)"
+        />
+        <rect
+          x="250"
+          y="220"
+          width="80"
+          height="50"
+          fill="transparent"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(30, 200, 160)"
+        />
+        <rect
+          x="350"
+          y="490"
+          width="40"
+          height="40"
+          fill="transparent"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(4, 370, 510)"
+        />
+        <rect
+          x="325"
+          y="300"
+          width="10"
+          height="150"
+          fill="transparent"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+
+        <polygon
+          points="320,100 370,100 345,57"
+          fill="transparent"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(15, 345, 86)"
+        />
+        <polygon
+          points="280,390 350,390 315,335"
+          fill="fill"
+          stroke="currentColor"
+          strokeWidth="2"
         />
       </svg>
     </div>
