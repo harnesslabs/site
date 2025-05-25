@@ -56,6 +56,24 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+        "gradient-flow": "gradient-flow 4s ease-in-out infinite",
+        "gradient-rotate": "gradient-rotate 3s linear infinite",
+      },
+      keyframes: {
+        "gradient-flow": {
+          "0%": { "background-position": "0% 50%" },
+          "100%": { "background-position": "200% 50%" },
+        },
+        "gradient-rotate": {
+          "0%": { "background-position": "0% 50%" },
+          "25%": { "background-position": "100% 0%" },
+          "50%": { "background-position": "200% 50%" },
+          "75%": { "background-position": "100% 100%" },
+          "100%": { "background-position": "0% 50%" },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
