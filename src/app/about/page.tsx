@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { companyValues, teamMembers } from "@/data";
 import type { Metadata } from "next";
 import AboutSeparator from "./_components/about-separator";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Harness Labs | About",
@@ -115,7 +116,7 @@ function ContactSection() {
           discussions, and attending events. Have questions or want to connect?
         </p>
         <Button size="lg" asChild>
-          <a href="mailto:contact@harnesslabs.xyz">Get in touch</a>
+          <a href={siteConfig.links.email}>Get in touch</a>
         </Button>
       </div>
     </section>
