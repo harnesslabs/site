@@ -7,7 +7,7 @@ export default function WaterfallSeparator() {
   const [rotation, setRotation] = useState(0);
 
   const triangleCenterX = 315;
-  const triangleCenterY = 362.5;
+  const triangleCenterY = 372.5;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,15 +85,6 @@ export default function WaterfallSeparator() {
           transform="rotate(30, 200, 160)"
         />
         <rect
-          x="325"
-          y="300"
-          width="10"
-          height="150"
-          fill="transparent"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        <rect
           x="320"
           y="80"
           width="40"
@@ -114,7 +105,7 @@ export default function WaterfallSeparator() {
 
         <polygon
           ref={rotatingTriangleRef}
-          points="280,390 350,390 315,335"
+          points="280,400 350,400 315,345"
           fill="currentColor"
           stroke="currentColor"
           strokeWidth="2"
