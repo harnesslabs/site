@@ -1,4 +1,35 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 export default function WaterfallSeparator() {
+  const rotatingTriangleRef = useRef<SVGPolygonElement>(null);
+  const [rotation, setRotation] = useState(0);
+
+  const triangleCenterX = 315;
+  const triangleCenterY = 362.5;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const newRotation = window.scrollY / 5;
+      setRotation(newRotation);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (rotatingTriangleRef.current) {
+      rotatingTriangleRef.current.setAttribute(
+        "transform",
+        `rotate(${rotation}, ${triangleCenterX}, ${triangleCenterY})`
+      );
+    }
+  }, [rotation, triangleCenterX, triangleCenterY]);
+
   return (
     <div className="w-full h-full flex items-center justify-start overflow-hidden">
       <svg width="400" height="540" viewBox="0 0 400 540" xmlns="http://www.w3.org/2000/svg">
@@ -82,6 +113,7 @@ export default function WaterfallSeparator() {
         />
 
         <polygon
+          ref={rotatingTriangleRef}
           points="280,390 350,390 315,335"
           fill="currentColor"
           stroke="currentColor"
