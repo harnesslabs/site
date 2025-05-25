@@ -28,8 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={`${redHatText.variable} ${redHatMono.variable} antialiased font-sans`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <div className="flex flex-col min-h-dvh">
             <Header />
             <main className="flex flex-col flex-grow container mx-auto max-w-7xl h-full my-8">
