@@ -6,10 +6,10 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Footer() {
   return (
-    <footer className="block bg-background w-full border-t dark:border-t-neutral-600">
-      <div className="container mx-auto h-16 flex items-center justify-between px-4">
+    <footer className="w-full border-t dark:border-t-neutral-600">
+      <div className="mx-auto h-16 flex items-center justify-between px-6">
         <div className="flex-1"></div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-0 sm:space-x-2">
           <Link href="https://harnesslabs.xyz" target="_blank" rel="noreferrer">
             <div className="text-md pr-2">
               © {new Date().getFullYear()} {siteConfig.name}
