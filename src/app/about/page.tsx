@@ -32,7 +32,7 @@ function HeroSection() {
     <section className="text-center">
       <p className="text-sm text-muted-foreground uppercase tracking-wider mb-2">Harness Labs</p>
       <h1 className="text-4xl sm:text-5xl mb-12">Who are we?</h1>
-      <div className="max-w-3xl mx-auto space-y-4 text-lg text-left text-justify text-foreground">
+      <div className="max-w-3xl mx-auto space-y-4 text-lg text-justify text-foreground">
         <p>
           We are a technology organization dedicated to building innovative software solutions
           grounded in mathematical principles. For us, mathematics is more than a tool&mdash;it is
