@@ -104,9 +104,9 @@ function ContactSection() {
       className="
         py-16
         text-center
-        bg-background
-        rounded-lg
-        contact-shadow
+        rounded-xl
+        shadow-[0_6px_6px_0_rgba(0,0,0,0.1),0_2px_2px_0_rgba(0,0,0,0.06)]
+        dark:shadow-[0_6px_6px_0_rgba(255,255,255,0.05),0_2px_2px_0_rgba(255,255,255,0.06)]
       "
     >
       <div className="max-w-2xl mx-auto">
