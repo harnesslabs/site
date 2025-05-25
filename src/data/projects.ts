@@ -11,7 +11,13 @@ export const projects: Project[] = [
     link: "https://github.com/harnesslabs/cova",
     slug: "cova",
     description:
-      "Mathematical abstractions and computations, focusing on rigorous implementations of algebraic structures, topological spaces, and computational mathematics.",
+      "Mathematical abstractions and computations with rigorous implementations of algebraic structures, topological spaces, and computational mathematics.",
+  },
+  {
+    name: "Arbiter",
+    link: "https://github.com/harnesslabs/arc-agi",
+    description:
+      "A blazing-fast Ethereum sandbox that lets developers orchestrate event-driven simulations.",
   },
   {
     name: "ARC-AGI",
