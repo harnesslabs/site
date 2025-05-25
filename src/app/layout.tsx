@@ -28,9 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${redHatText.variable} ${redHatMono.variable} antialiased font-sans`}
-      >
+      <body className={`${redHatText.variable} ${redHatMono.variable} antialiased font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex flex-col min-h-dvh">
             <Header />

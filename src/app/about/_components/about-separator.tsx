@@ -1,11 +1,7 @@
 export default function AboutSeparator() {
   return (
     <div className="max-w-3xl mx-auto">
-      <svg
-        className="w-full"
-        viewBox="0 0 770 240"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg className="w-full" viewBox="0 0 770 240" xmlns="http://www.w3.org/2000/svg">
         <style type="text/css">{`
           circle,
           rect,
@@ -24,38 +20,10 @@ export default function AboutSeparator() {
           }
         `}</style>
 
-        <circle
-          cx="65"
-          cy="160"
-          r="40"
-          fill="transparent"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        <circle
-          cx="370"
-          cy="80"
-          r="20"
-          fill="transparent"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        <circle
-          cx="670"
-          cy="140"
-          r="30"
-          fill="transparent"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        <circle
-          cx="570"
-          cy="25"
-          r="7"
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
+        <circle cx="65" cy="160" r="40" fill="transparent" stroke="currentColor" strokeWidth="2" />
+        <circle cx="370" cy="80" r="20" fill="transparent" stroke="currentColor" strokeWidth="2" />
+        <circle cx="670" cy="140" r="30" fill="transparent" stroke="currentColor" strokeWidth="2" />
+        <circle cx="570" cy="25" r="7" fill="currentColor" stroke="currentColor" strokeWidth="2" />
 
         <rect
           x="170"
