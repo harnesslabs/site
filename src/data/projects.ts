@@ -17,8 +17,7 @@ export const projects: Project[] = [
     name: "Arbiter",
     link: "https://github.com/harnesslabs/arc-agi",
     slug: "arbiter",
-    description:
-      "A blazing-fast Ethereum sandbox that lets developers orchestrate event-driven simulations.",
+    description: "A Rust-based multi-agent framework for design, simulation, and auditing.",
   },
   {
     name: "ARC-AGI",
