@@ -28,13 +28,17 @@ export function Header() {
   }, []);
 
   return (
-    <header className="top-0 z-40">
+    <header className="relative top-0 z-40">
       <div
         className={`mx-auto px-4 sm:px-12 py-4 flex items-start justify-between ${
           shouldTransition ? "transition-colors duration-300" : ""
-        } ${isMenuOpen ? "bg-foreground/5" : ""}`}
+        } ${isMenuOpen ? "bg-muted" : ""}`}
       >
-        <Link href="/" className="flex items-center space-x-2 pt-1.5">
+        <Link
+          href="/"
+          className="flex items-center space-x-2 pt-1.5"
+          onClick={() => setIsMenuOpen(false)}
+        >
           <Icons.logo className="h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
@@ -88,11 +92,11 @@ export function Header() {
 
       {/* Mobile Navigation Menu */}
       <div
-        className={`sm:hidden bg-foreground/5 overflow-hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-96 opacity-100 pb-2" : "max-h-0 opacity-0"
+        className={`sm:hidden absolute top-full left-0 w-full bg-muted border-b transition-all duration-300 ease-in-out ${
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <nav className="px-4 py-4 space-y-6">
+        <nav className="px-4 py-8 space-y-3">
           {siteConfig.nav.map((group, groupIndex) => (
             <div
               key={groupIndex}
