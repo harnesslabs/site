@@ -74,7 +74,7 @@ export default function Hero() {
   const [symbols, setSymbols] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const positions = 12;
+  const positions = 10;
 
   useEffect(() => {
     setSymbols(
