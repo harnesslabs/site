@@ -11,15 +11,12 @@ function AnimatedTitle({ title }: { title: string }) {
 export default function Projects() {
   return (
     <section className="py-16 px-4 max-w-7xl mx-auto relative">
-      {/* Main outer grid spanning the entire section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left side: Description and Cards */}
         <div className="lg:col-span-2 space-y-6 relative z-10">
-          {/* Description section */}
           <div>
             <h2 className="text-4xl md:text-5xl">Research & Development</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
-              Advancing the frontiers of computational mathematics and artificial intelligence
+              Advancing the frontier of computational mathematics and artificial intelligence
               through exploration rooted in theory and driven by practice. See our work below!
             </p>
             <div className="mt-4">
