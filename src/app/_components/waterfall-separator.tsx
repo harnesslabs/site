@@ -105,7 +105,7 @@ export default function WaterfallSeparator() {
 
         <polygon
           ref={rotatingTriangleRef}
-          points="280,400 350,400 315,345"
+          points="280,400 350,400 315,339.64"
           fill="currentColor"
           stroke="currentColor"
           strokeWidth="2"

@@ -26,7 +26,7 @@ export default function Projects() {
               <Link href="/playground" className="group relative inline-block">
                 {/* Subtle outer glow */}
                 <div className="absolute inset-0 rounded-xl opacity-30 blur-md scale-105">
-                  <div className="h-full w-full rounded-xl bg-gradient-to-r from-blue-500/50 via-red-500/50 via-green-500/50 to-green-500/50 animate-gradient-rotate bg-[length:200%_200%]"></div>
+                  <div className="h-full w-full rounded-xl bg-gradient-to-r from-blue-500/50 via-red-500/50 to-green-500/50 animate-gradient-rotate bg-[length:200%_200%]"></div>
                 </div>
                 {/* Main animated border */}
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 via-red-600 to-blue-600 animate-gradient-rotate bg-[length:200%_200%] p-[1.5px]">
@@ -55,7 +55,7 @@ export default function Projects() {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className="min-h-40 cursor-pointer border-border/50 hover:border-border bg-card/50 relative z-10">
+                <Card className="min-h-40 cursor-pointer border-border/50 hover:border-foreground/20 bg-card/50 relative z-10">
                   <CardContent className="p-6 h-full flex flex-col">
                     <AnimatedTitle title={project.name} />
                     <CardDescription className="text-muted-foreground leading-relaxed flex-1 line-clamp-3">
