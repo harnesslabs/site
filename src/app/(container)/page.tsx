@@ -1,6 +1,6 @@
-import Hero from "@/app/_components/hero";
-import Projects from "@/app/_components/projects";
-import Teaser from "@/app/_components/teaser";
+import Hero from "@/app/(container)/_components/hero";
+import Projects from "@/app/(container)/_components/projects";
+import Teaser from "@/app/(container)/_components/teaser";
 
 export default function Home() {
   return (

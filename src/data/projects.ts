@@ -11,26 +11,27 @@ export const projects: Project[] = [
     link: "https://github.com/harnesslabs/cova",
     slug: "cova",
     description:
-      "Mathematical abstractions and computations with rigorous implementations of algebraic structures, topological spaces, and computational mathematics.",
+      "A library for computational mathematics with precise, principled implementations of algebraic structures, topological spaces, and formal abstraction.",
   },
   {
     name: "Arbiter",
     link: "https://github.com/harnesslabs/arbiter",
     slug: "arbiter",
-    description: "A Rust-based multi-agent framework for design, simulation, and auditing.",
-  },
-  {
-    name: "ARC-AGI",
-    link: "https://github.com/harnesslabs/arc-agi",
-    slug: "arc-agi",
     description:
-      "Fundamental algorithm design for artificial intelligence, focused on the ability to adapt and reason in complex environments.",
+      "A Rust-based multi-agent framework for the design, simulation, and auditing of autonomous, event-driven systems.",
   },
   {
     name: "Pha",
     link: "https://github.com/harnesslabs/pha",
     slug: "pha",
     description:
-      "Leveraging reinforcement learning and evolutionary algorithms for dynamical systems and control theory.",
+      "An exploration into reinforcement learning and evolutionary algorithms for dynamical systems and control theory.",
+  },
+  {
+    name: "ARC-AGI",
+    link: "https://github.com/harnesslabs/arc-agi",
+    slug: "arc-agi",
+    description:
+      "Biologically inspired and mathematically grounded learning algorithms for adaption and reasoning in complex environments.",
   },
 ];
