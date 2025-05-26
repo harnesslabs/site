@@ -10,16 +10,16 @@ function AnimatedTitle({ title }: { title: string }) {
 
 export default function Projects() {
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto relative">
+    <section className="mx-auto relative">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6 relative z-10">
+        <div className="lg:col-span-2 relative z-10">
           <div>
             <h2 className="text-4xl md:text-5xl">Research & Development</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
               Advancing the frontier of computational mathematics and artificial intelligence
               through exploration rooted in theory and driven by practice. See our work below!
             </p>
-            <div className="mt-4">
+            <div className="mt-4 mb-6">
               <Link href="/playground" className="group relative inline-block">
                 {/* Subtle outer glow */}
                 <div className="absolute inset-0 rounded-xl opacity-30 blur-md scale-105">
@@ -66,7 +66,7 @@ export default function Projects() {
         </div>
       </div>
       {/* Waterfall separator overlay*/}
-      <div className="hidden lg:block absolute inset-y-0 pointer-events-none z-0 right-0 pr-8">
+      <div className="hidden lg:block absolute inset-y-0 pointer-events-none z-0 right-0 pr-6">
         <WaterfallSeparator />
       </div>
     </section>

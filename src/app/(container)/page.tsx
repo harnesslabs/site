@@ -1,13 +1,13 @@
-import Hero from "@/app/(container)/_components/hero";
-import Projects from "@/app/(container)/_components/projects";
-import Teaser from "@/app/(container)/_components/teaser";
+import Hero from "./_components/hero";
+import Projects from "./_components/projects";
+import Foundation from "./_components/foundation";
 
 export default function Home() {
   return (
-    <div className="flex flex-grow flex-col items-center justify-center space-y-32 my-32">
+    <div className="flex flex-grow flex-col space-y-40 mb-32">
       <Hero />
       <Projects />
-      <Teaser />
+      <Foundation />
     </div>
   );
 }

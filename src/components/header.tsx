@@ -46,7 +46,10 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden sm:flex items-start space-x-6">
           {siteConfig.nav.map((group, groupIndex) => (
-            <div key={groupIndex} className="flex flex-col items-end space-y-1 border-t pt-2 pl-16">
+            <div
+              key={groupIndex}
+              className="flex flex-col items-end space-y-1 border-t border-muted-foreground pt-2 pl-16"
+            >
               {group.map((item) => (
                 <Link
                   key={item.href}
