@@ -4,7 +4,7 @@ import Foundation from "./_components/foundation";
 
 export default function Home() {
   return (
-    <div className="flex flex-grow flex-col space-y-32 my-32">
+    <div className="flex flex-grow flex-col space-y-40 mb-32">
       <Hero />
       <Projects />
       <Foundation />
