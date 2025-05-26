@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="flex flex-grow flex-col items-center text-foreground py-20 px-4 sm:px-6 lg:px-8">
+    <main className="flex flex-grow flex-col items-center text-foreground py-20">
       <div className="w-full space-y-16">
         <HeroSection />
 
