@@ -21,8 +21,6 @@ export default function Page() {
     return <div>Loading...</div>;
   }
 
-  console.log(cova);
-
   return (
     <div className="flex flex-col gap-10">
       <ProjectHeader project={project} />
@@ -35,6 +33,7 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
   const { default: initSync, VietorisRipsDemo } = cova;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const [demo, setDemo] = useState<VietorisRipsDemoType | null>(null);
   const [epsilon, setEpsilon] = useState(50);
   const [complexStats, setComplexStats] = useState<ComplexStatsType | null>(null);
@@ -80,6 +79,49 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
       console.error(error);
     }
   }, [demo]);
+
+  useEffect(() => {
+    const canvasElement = canvasRef.current;
+    const wrapperElement = canvasWrapperRef.current;
+
+    if (!canvasElement || !wrapperElement || !demo) {
+      return;
+    }
+
+    const setAndUpdateCanvasDimensions = () => {
+      if (!wrapperElement || !canvasElement) return;
+
+      const { width, height } = wrapperElement.getBoundingClientRect();
+
+      if (width > 0 && height > 0) {
+        if (canvasElement.width !== width || canvasElement.height !== height) {
+          canvasElement.width = width;
+          canvasElement.height = height;
+        }
+      }
+    };
+
+    setAndUpdateCanvasDimensions();
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          if (canvasElement.width !== width || canvasElement.height !== height) {
+            canvasElement.width = width;
+            canvasElement.height = height;
+          }
+        }
+      }
+    });
+
+    resizeObserver.observe(wrapperElement);
+
+    return () => {
+      resizeObserver.unobserve(wrapperElement);
+      resizeObserver.disconnect();
+    };
+  }, [demo, performRenderOnCanvas]);
 
   const handleCanvasClick = useCallback(
     (event: MouseEvent) => {
@@ -155,15 +197,20 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
   return (
     <div className="flex flex-col gap-8 items-center justify-center">
       <div className="text-sm">Vietoris-Rips Complex</div>
-      <div className="flex flex-row gap-4 items-start justify-center">
-        <canvas
-          id="canvas"
-          ref={canvasRef}
-          width={600}
-          height={498}
-          className="border border-gray-200 rounded-md cursor-crosshair"
-        />
-        <div className="flex flex-col gap-6 w-72 p-6 border border-gray-200 rounded-md bg-white h-[500px]">
+      <div className="flex flex-col lg:flex-row gap-4 items-start justify-center w-full px-4">
+        <div
+          ref={canvasWrapperRef}
+          className="flex-grow w-full h-[500px] border border-gray-200 rounded-md overflow-hidden bg-white"
+        >
+          <canvas
+            id="canvas"
+            ref={canvasRef}
+            // width={600}
+            // height={498}
+            className="cursor-crosshair block"
+          />
+        </div>
+        <div className="flex flex-col gap-6 w-full lg:w-72 p-6 border border-gray-200 rounded-md bg-white h-[500px] flex-shrink-0">
           <div className="flex flex-col gap-3">
             <h3 className="text-sm font-medium text-gray-700 tracking-wider">Distance Threshold</h3>
             <div className="flex flex-col gap-2 items-start">
