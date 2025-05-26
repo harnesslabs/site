@@ -37,83 +37,72 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
   const [demo, setDemo] = useState<VietorisRipsDemoType | null>(null);
   const [epsilon, setEpsilon] = useState(50);
   const [complexStats, setComplexStats] = useState<ComplexStatsType | null>(null);
+  const [isWasmInitialized, setIsWasmInitialized] = useState(false);
 
-  // Effect for WASM initialization, demo creation, and initial render
   useEffect(() => {
-    let localDemoInstance: VietorisRipsDemoType | null = null;
-
-    async function initialize() {
-      if (!canvasRef.current) {
-        return;
-      }
-
-      await initSync();
-
-      localDemoInstance = new VietorisRipsDemo(canvasRef.current.width, canvasRef.current.height);
-      setDemo(localDemoInstance);
-      setEpsilon(localDemoInstance.get_epsilon());
-      setComplexStats(localDemoInstance.get_complex_stats());
-
-      const ctx = canvasRef.current.getContext("2d");
-      if (!ctx) {
-        return;
-      }
-      localDemoInstance.render(ctx);
+    if (!isWasmInitialized) {
+      initSync()
+        .then(() => setIsWasmInitialized(true))
+        .catch(console.error);
     }
+  }, [initSync, isWasmInitialized]);
 
-    void initialize();
-  }, [initSync, VietorisRipsDemo]);
-
-  const performRenderOnCanvas = useCallback(() => {
-    if (!demo || !canvasRef.current) {
-      return;
-    }
+  const drawDemo = useCallback(() => {
+    if (!demo || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
-    if (!ctx) {
-      return;
-    }
+    if (!ctx) return;
+
     try {
       demo.render(ctx);
       setComplexStats(demo.get_complex_stats());
     } catch (error) {
-      console.error(error);
+      console.error("Render error:", error);
     }
-  }, [demo]);
+  }, [demo, setComplexStats]);
 
   useEffect(() => {
     const canvasElement = canvasRef.current;
     const wrapperElement = canvasWrapperRef.current;
 
-    if (!canvasElement || !wrapperElement || !demo) {
+    if (!isWasmInitialized || !canvasElement || !wrapperElement) {
       return;
     }
 
-    const setAndUpdateCanvasDimensions = () => {
-      if (!wrapperElement || !canvasElement) return;
-
+    if (!demo) {
       const { width, height } = wrapperElement.getBoundingClientRect();
-
       if (width > 0 && height > 0) {
-        if (canvasElement.width !== width || canvasElement.height !== height) {
-          canvasElement.width = width;
-          canvasElement.height = height;
-        }
-      }
-    };
+        canvasElement.width = width;
+        canvasElement.height = height;
 
-    setAndUpdateCanvasDimensions();
+        const newDemo = new VietorisRipsDemo(width, height);
+        setDemo(newDemo);
+        setEpsilon(newDemo.get_epsilon());
+      }
+      return;
+    }
 
     const resizeObserver = new ResizeObserver((entries) => {
+      if (!canvasElement) return;
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
         if (width > 0 && height > 0) {
           if (canvasElement.width !== width || canvasElement.height !== height) {
             canvasElement.width = width;
             canvasElement.height = height;
+            drawDemo();
           }
         }
       }
     });
+
+    const { width, height } = wrapperElement.getBoundingClientRect();
+    if (width > 0 && height > 0) {
+      if (canvasElement.width !== width || canvasElement.height !== height) {
+        canvasElement.width = width;
+        canvasElement.height = height;
+      }
+    }
+    drawDemo();
 
     resizeObserver.observe(wrapperElement);
 
@@ -121,7 +110,11 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
       resizeObserver.unobserve(wrapperElement);
       resizeObserver.disconnect();
     };
-  }, [demo, performRenderOnCanvas]);
+  }, [isWasmInitialized, VietorisRipsDemo, demo, setDemo, setEpsilon, drawDemo]);
+
+  const performRenderOnCanvas = useCallback(() => {
+    drawDemo();
+  }, [drawDemo]);
 
   const handleCanvasClick = useCallback(
     (event: MouseEvent) => {
@@ -179,7 +172,7 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
       setEpsilon(newEpsilon);
       performRenderOnCanvas();
     },
-    [demo, performRenderOnCanvas]
+    [demo, performRenderOnCanvas, setEpsilon]
   );
 
   useEffect(() => {
