@@ -13,7 +13,7 @@ export const teamMembers: TeamMember[] = [
     link: "https://x.com/itsstock",
   },
   {
-    name: "Zach Adams, MS",
+    name: "Zach Adams",
     link: "https://x.com/_OuterProduct",
   },
   {
