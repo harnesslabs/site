@@ -94,7 +94,7 @@ export default function Hero() {
           return prev[index];
         })
       );
-    }, 100);
+    }, 125);
 
     return () => clearInterval(interval);
   }, []);
