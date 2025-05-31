@@ -94,7 +94,7 @@ export default function Hero() {
           return prev[index];
         })
       );
-    }, 150);
+    }, 100);
 
     return () => clearInterval(interval);
   }, []);
@@ -113,7 +113,7 @@ export default function Hero() {
               <span
                 key={index}
                 className={`
-                  inline-block transition-all duration-300 ease-in-out transform
+                  inline-block transition-all duration-300 ease-in-out transform w-[26px]
                   ${index % 3 === 0 ? "text-foreground" : index % 3 === 1 ? "text-muted-foreground/80" : "text-muted-foreground/60"}
                   hover:scale-110 hover:text-foreground
                   ${Math.random() > 0.7 ? "animate-pulse" : ""}
