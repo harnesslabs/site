@@ -5,7 +5,7 @@ export default function Foundation() {
     <section className="mx-auto relative">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1"></div>
-        <div className="lg:col-span-2 relative z-10 text-left md:text-right">
+        <div className="lg:col-span-2 relative z-10 text-left lg:text-right">
           <div>
             <h2 className="text-4xl md:text-5xl">Our Foundation</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl ml-auto">
