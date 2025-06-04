@@ -4,8 +4,30 @@ export default function Foundation() {
   return (
     <section className="mx-auto relative">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1"></div>
-        <div className="lg:col-span-2 relative z-10 text-left md:text-right">
+        <div className="lg:col-span-1 hidden lg:flex justify-center items-center">
+          <svg
+            className="w-40 h-40"
+            fill="currentColor"
+            viewBox="18 26 92 84"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="20,28 108,28 64,108"
+              fill="transparent"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <circle
+              cx="99"
+              cy="100"
+              r="10"
+              fill="currentColor"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+        <div className="lg:col-span-2 relative z-10 text-left lg:text-right">
           <div>
             <h2 className="text-4xl md:text-5xl">Our Foundation</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl ml-auto">

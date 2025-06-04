@@ -77,7 +77,7 @@ function TeamSection() {
     <section className="py-12">
       <div className="mx-auto flex flex-col md:flex-row md:space-x-8">
         <div className="md:w-1/3 mb-10 md:mb-0">
-          <h2 className="text-4xl sm:text-5xl text-center md:text-left">Our team</h2>
+          <h2 className="text-4xl sm:text-5xl text-center md:text-left">Core team</h2>
         </div>
         <div className="md:w-2/3">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 mx-16 sm:mx-0 font-semibold">

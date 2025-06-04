@@ -23,6 +23,7 @@ export const siteConfig = {
     email: "mailto:contact@harnesslabs.xyz",
     company: "https://harnesslabs.xyz",
     github: "https://github.com/harnesslabs",
+    discord: "https://discord.gg/qEwPr3GMP2",
     x: "https://x.com/harnesslabs",
   },
 };
