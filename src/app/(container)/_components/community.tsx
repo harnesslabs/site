@@ -32,8 +32,8 @@ export default function Community() {
                 <div className="h-full w-full rounded-[calc(0.75rem-1.5px)] bg-primary-foreground" />
               </div>
               {/* Content */}
-              <div className="relative px-6 py-2 rounded-xl flex items-center gap-3 font-medium transition-all duration-300">
-                <Icons.discord className="w-5 h-5 duration-300" />
+              <div className="relative px-6 py-2 rounded-xl flex items-center gap-3 font-medium transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/5">
+                <Icons.discord className="w-5 h-5" />
                 Discord
               </div>
             </Link>
