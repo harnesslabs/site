@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto h-16 flex items-center justify-between px-6">
         <div className="flex-1"></div>
         <div className="flex items-center space-x-0 sm:space-x-2">
-          <Link href="https://harnesslabs.xyz" target="_blank" rel="noreferrer">
+          <Link href="https://harnesslabs.dev" target="_blank" rel="noreferrer">
             <div className="text-md pr-2">
               © {new Date().getFullYear()} {siteConfig.name}
             </div>
