@@ -8,20 +8,20 @@ interface NavItem {
 export const siteConfig = {
   name: "Harness Labs",
   description: "coming soon...",
-  main: "https://harnesslabs.xyz",
+  main: "https://harnesslabs.dev",
   nav: [
     [
       { href: "/about", label: "About" },
       { href: "/playground", label: "Play" },
     ],
     [
-      { href: "mailto:contact@harnesslabs.xyz", label: "Contact" },
+      { href: "mailto:contact@harnesslabs.dev", label: "Contact" },
       { href: "https://github.com/harnesslabs", label: "GitHub" },
     ],
   ] as NavItem[][],
   links: {
-    email: "mailto:contact@harnesslabs.xyz",
-    company: "https://harnesslabs.xyz",
+    email: "mailto:contact@harnesslabs.dev",
+    company: "https://harnesslabs.dev",
     github: "https://github.com/harnesslabs",
     discord: "https://discord.gg/qEwPr3GMP2",
     x: "https://x.com/harnesslabs",
