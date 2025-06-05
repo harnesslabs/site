@@ -18,7 +18,26 @@ const redHatMono = Red_Hat_Mono({
 
 export const metadata: Metadata = {
   title: "Harness Labs",
-  description: "coming soon...",
+  description: "biological abstractions",
+  openGraph: {
+    title: "Harness Labs",
+    description: "biological abstractions",
+    images: [
+      {
+        url: "/tag.png",
+        width: 1200,
+        height: 630,
+        alt: "Harness Labs",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Harness Labs",
+    description: "biological abstractions",
+    images: ["/tag.png"],
+  },
 };
 
 export default function RootLayout({
