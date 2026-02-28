@@ -35,6 +35,8 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
   const [isWasmInitialized, setIsWasmInitialized] = useState(false);
   const requestRef = useRef<number | undefined>(undefined);
 
+  const [agentList, setAgentList] = useState<{ id: string; state: string }[]>([]);
+
   useEffect(() => {
     if (!isWasmInitialized) {
       initSync()
@@ -42,6 +44,22 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
         .catch(console.error);
     }
   }, [initSync, isWasmInitialized]);
+
+  const updateAgentList = useCallback(() => {
+    if (!simulation) return;
+    try {
+      const namesJson = simulation.agentNames();
+      const names: string[] = JSON.parse(namesJson);
+      setAgentList(
+        names.map((name) => ({
+          id: name,
+          state: simulation.agentState(name),
+        }))
+      );
+    } catch (error) {
+      console.error("Failed to parse agent names:", error);
+    }
+  }, [simulation]);
 
   const drawDemo = useCallback(() => {
     if (!simulation || !canvasRef.current) return;
@@ -92,8 +110,9 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
 
   const loop = useCallback(() => {
     drawDemo();
+    updateAgentList();
     requestRef.current = requestAnimationFrame(loop);
-  }, [drawDemo]);
+  }, [drawDemo, updateAgentList]);
 
   useEffect(() => {
     if (simulation) {
@@ -176,28 +195,177 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
     simulation.clear_all_agents();
   }, [simulation]);
 
+  const handleStartAgent = useCallback(
+    (id: string) => {
+      if (!simulation) return;
+      simulation.startAgent(id);
+      updateAgentList();
+    },
+    [simulation, updateAgentList]
+  );
+
+  const handlePauseAgent = useCallback(
+    (id: string) => {
+      if (!simulation) return;
+      simulation.pauseAgent(id);
+      updateAgentList();
+    },
+    [simulation, updateAgentList]
+  );
+
+  const handleStopAgent = useCallback(
+    (id: string) => {
+      if (!simulation) return;
+      simulation.stopAgent(id);
+      updateAgentList();
+    },
+    [simulation, updateAgentList]
+  );
+
+  const handleProcessAgent = useCallback(
+    (id: string) => {
+      if (!simulation) return;
+      simulation.processAgent(id);
+      updateAgentList();
+    },
+    [simulation, updateAgentList]
+  );
+
+  const handleRemoveAgent = useCallback(
+    (id: string) => {
+      if (!simulation) return;
+      simulation.removeAgent(id);
+      updateAgentList();
+    },
+    [simulation, updateAgentList]
+  );
+
   return (
     <div className="flex flex-col gap-8 items-center justify-center">
       <div className="text-sm">Leader-Follower Simulation</div>
+
       <div className="flex flex-col lg:flex-row gap-4 items-start justify-center w-full px-4">
-        <div
-          ref={canvasWrapperRef}
-          className="flex-grow w-full h-[500px] border border-gray-200 rounded-md overflow-hidden bg-white"
-        >
-          <canvas id="canvas" ref={canvasRef} className="block" />
+        {/* Main Canvas Area */}
+        <div className="flex flex-col flex-grow w-full gap-4">
+          <div
+            ref={canvasWrapperRef}
+            className="w-full h-[500px] border border-gray-200 rounded-md overflow-hidden bg-white"
+          >
+            <canvas id="canvas" ref={canvasRef} className="block" />
+          </div>
+
+          {/* Agent Information Panel */}
+          <div className="w-full border border-gray-200 rounded-md bg-white overflow-hidden flex flex-col max-h-[300px]">
+            <div className="bg-gray-50 border-b border-gray-200 py-3 px-4 flex justify-between items-center font-medium text-sm text-gray-700">
+              <span>Active Agents ({agentList.length})</span>
+            </div>
+
+            <div className="overflow-y-auto w-full p-2 space-y-2">
+              {agentList.length === 0 ? (
+                <div className="text-sm text-gray-400 p-4 text-center border-t border-gray-100">
+                  No agents in the simulation. Add some!
+                </div>
+              ) : (
+                agentList.map((agent) => (
+                  <div
+                    key={agent.id}
+                    className="flex flex-wrap md:flex-nowrap justify-between items-center p-3 py-2 bg-gray-50 border border-gray-100 rounded hover:bg-gray-100 transition-colors gap-2"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-2 h-2 rounded-full ${agent.id.includes("Leader") ? "bg-red-500" : "bg-blue-500"}`}
+                      />
+                      <span className="text-sm font-semibold text-gray-800 w-28 truncate">
+                        {agent.id}
+                      </span>
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded-full border ${
+                          agent.state === "Running"
+                            ? "bg-green-50 text-green-700 border-green-200"
+                            : agent.state === "Paused"
+                              ? "bg-yellow-50 text-yellow-700 border-yellow-200"
+                              : "bg-gray-200 text-gray-700 border-gray-300"
+                        }`}
+                      >
+                        {agent.state}
+                      </span>
+                    </div>
+
+                    <div className="flex gap-1.5 ml-auto">
+                      {agent.state === "Running" && (
+                        <>
+                          <button
+                            onClick={() => handlePauseAgent(agent.id)}
+                            className="cursor-pointer px-2 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-xs rounded border border-yellow-200 transition-colors"
+                          >
+                            Pause
+                          </button>
+                          <button
+                            onClick={() => handleStopAgent(agent.id)}
+                            className="cursor-pointer px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 text-xs rounded border border-red-200 transition-colors"
+                          >
+                            Stop
+                          </button>
+                        </>
+                      )}
+
+                      {agent.state === "Paused" && (
+                        <>
+                          <button
+                            onClick={() => handleStartAgent(agent.id)}
+                            className="cursor-pointer px-2 py-1 bg-green-100 hover:bg-green-200 text-green-800 text-xs rounded border border-green-200 transition-colors"
+                          >
+                            Start
+                          </button>
+                          <button
+                            onClick={() => handleStopAgent(agent.id)}
+                            className="cursor-pointer px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 text-xs rounded border border-red-200 transition-colors"
+                          >
+                            Stop
+                          </button>
+                        </>
+                      )}
+
+                      {(agent.state === "Unprocessed" ||
+                        agent.state === "Unknown" ||
+                        agent.state === "Ready") && (
+                        <button
+                          onClick={() => handleProcessAgent(agent.id)}
+                          className="cursor-pointer px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs rounded border border-blue-200 transition-colors"
+                        >
+                          Process & Start
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => handleRemoveAgent(agent.id)}
+                        className="cursor-pointer px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-xs rounded border border-gray-300 transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-6 w-full lg:w-72 p-6 border border-gray-200 rounded-md bg-white h-[500px] flex-shrink-0">
+
+        {/* Global Controls */}
+        <div className="flex flex-col gap-6 w-full lg:w-72 p-6 border border-gray-200 rounded-md bg-white h-auto flex-shrink-0">
           <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-medium text-gray-700 tracking-wider">Controls</h3>
+            <h3 className="text-sm font-medium text-gray-700 tracking-wider">
+              Simulation Controls
+            </h3>
             <button
               onClick={handleAddLeader}
-              className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 text-sm"
+              className="cursor-pointer w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 text-sm"
             >
               Add Leader
             </button>
             <button
               onClick={handleAddFollower}
-              className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 text-sm"
+              className="cursor-pointer w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 text-sm"
             >
               Add Follower
             </button>
@@ -208,7 +376,7 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
 
           <button
             onClick={handleReset}
-            className="w-full py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-sm mt-auto"
+            className="cursor-pointer w-full py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-sm mt-auto"
           >
             Clear All Agents
           </button>
