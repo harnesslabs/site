@@ -114,7 +114,10 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
         }
       });
     });
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     return () => {
       resizeObserver.unobserve(wrapperElement);
@@ -216,7 +219,9 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
         <div className="flex flex-col gap-6 w-full lg:w-[420px] p-6 border border-gray-200 dark:border-white/10 rounded-md bg-white dark:bg-black/40 dark:backdrop-blur-md h-[650px] flex-shrink-0 shadow-sm">
           {/* Global Controls */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">Distance Threshold</h3>
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">
+              Distance Threshold
+            </h3>
             <div className="flex flex-col gap-2 items-start">
               <label htmlFor="epsilonSlider" className="text-sm text-gray-600 dark:text-gray-400">
                 Epsilon (ε)
@@ -231,7 +236,9 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
                 onChange={handleEpsilonChange}
                 className="w-full h-2 bg-gray-200 dark:bg-white/20 rounded-lg appearance-none cursor-pointer accent-gray-700 dark:accent-gray-300"
               />
-              <div className="self-center text-lg font-medium text-gray-800 dark:text-gray-200 mt-1">{epsilon}</div>
+              <div className="self-center text-lg font-medium text-gray-800 dark:text-gray-200 mt-1">
+                {epsilon}
+              </div>
             </div>
             <div className="text-xs text-gray-600 dark:text-gray-400 p-3 border border-gray-200 dark:border-white/10 rounded-sm bg-gray-50 dark:bg-white/5 text-center mt-2">
               Gray circles show the ε-neighborhood around each point
@@ -247,23 +254,31 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
 
           {/* Statistics Panel */}
           <div className="flex flex-col gap-3 h-full min-h-0">
-            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">Complex Statistics</h3>
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">
+              Complex Statistics
+            </h3>
             <div className="w-full border border-gray-200 dark:border-white/10 rounded-sm bg-white dark:bg-transparent overflow-hidden flex flex-col min-h-0 flex-grow">
               <div className="overflow-y-auto w-full p-2 space-y-2 h-[100px] flex-grow">
                 <div className="flex justify-between items-center p-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors gap-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Vertices (0-simplices)</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Vertices (0-simplices)
+                  </span>
                   <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                     {complexStats?.vertices ?? 0}
                   </span>
                 </div>
                 <div className="flex justify-between items-center p-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors gap-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Edges (1-simplices)</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Edges (1-simplices)
+                  </span>
                   <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                     {complexStats?.edges ?? 0}
                   </span>
                 </div>
                 <div className="flex justify-between items-center p-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors gap-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Triangles (2-simplices)</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Triangles (2-simplices)
+                  </span>
                   <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                     {complexStats?.triangles ?? 0}
                   </span>

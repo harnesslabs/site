@@ -261,18 +261,18 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
             <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">
               Simulation Controls
             </h3>
-              <button
-                onClick={handleAddLeader}
-                className="cursor-pointer w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 text-sm shadow-[0_0_15px_rgba(239,68,68,0.3)] transition-all"
-              >
-                Add Leader
-              </button>
-              <button
-                onClick={handleAddFollower}
-                className="cursor-pointer w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all"
-              >
-                Add Follower
-              </button>
+            <button
+              onClick={handleAddLeader}
+              className="cursor-pointer w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 text-sm shadow-[0_0_15px_rgba(239,68,68,0.3)] transition-all"
+            >
+              Add Leader
+            </button>
+            <button
+              onClick={handleAddFollower}
+              className="cursor-pointer w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all"
+            >
+              Add Follower
+            </button>
             <div className="text-xs text-gray-600 dark:text-gray-400 p-3 border border-gray-200 dark:border-white/10 rounded-sm bg-gray-50 dark:bg-white/5 text-center mt-2">
               Followers will automatically follow nearby leaders.
             </div>
@@ -325,76 +325,76 @@ function Demo({ arbiter }: { arbiter: ArbiterWasmExport }) {
                         </span>
                       </div>
 
-                    <div className="flex gap-1.5 ml-auto flex-shrink-0">
-                      {agent.state === "Running" && (
-                        <>
-                          <button
-                            onClick={() => handlePauseAgent(agent.id)}
-                            className="cursor-pointer px-2 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 dark:bg-yellow-500/10 dark:hover:bg-yellow-500/20 dark:text-yellow-400 text-xs rounded border border-yellow-200 dark:border-yellow-500/20 transition-colors"
-                          >
-                            Pause
-                          </button>
-                          <button
-                            onClick={() => handleStopAgent(agent.id)}
-                            className="cursor-pointer px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-500/10 dark:hover:bg-red-500/20 dark:text-red-400 text-xs rounded border border-red-200 dark:border-red-500/20 transition-colors"
-                          >
-                            Stop
-                          </button>
-                        </>
-                      )}
+                      <div className="flex gap-1.5 ml-auto flex-shrink-0">
+                        {agent.state === "Running" && (
+                          <>
+                            <button
+                              onClick={() => handlePauseAgent(agent.id)}
+                              className="cursor-pointer px-2 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 dark:bg-yellow-500/10 dark:hover:bg-yellow-500/20 dark:text-yellow-400 text-xs rounded border border-yellow-200 dark:border-yellow-500/20 transition-colors"
+                            >
+                              Pause
+                            </button>
+                            <button
+                              onClick={() => handleStopAgent(agent.id)}
+                              className="cursor-pointer px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-500/10 dark:hover:bg-red-500/20 dark:text-red-400 text-xs rounded border border-red-200 dark:border-red-500/20 transition-colors"
+                            >
+                              Stop
+                            </button>
+                          </>
+                        )}
 
-                      {agent.state === "Paused" && (
-                        <>
-                          <button
-                            onClick={() => handleStartAgent(agent.id)}
-                            className="cursor-pointer px-2 py-1 bg-green-100 hover:bg-green-200 text-green-800 dark:bg-green-500/10 dark:hover:bg-green-500/20 dark:text-green-400 text-xs rounded border border-green-200 dark:border-green-500/20 transition-colors"
-                          >
-                            Start
-                          </button>
-                          <button
-                            onClick={() => handleStopAgent(agent.id)}
-                            className="cursor-pointer px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-500/10 dark:hover:bg-red-500/20 dark:text-red-400 text-xs rounded border border-red-200 dark:border-red-500/20 transition-colors"
-                          >
-                            Stop
-                          </button>
-                        </>
-                      )}
+                        {agent.state === "Paused" && (
+                          <>
+                            <button
+                              onClick={() => handleStartAgent(agent.id)}
+                              className="cursor-pointer px-2 py-1 bg-green-100 hover:bg-green-200 text-green-800 dark:bg-green-500/10 dark:hover:bg-green-500/20 dark:text-green-400 text-xs rounded border border-green-200 dark:border-green-500/20 transition-colors"
+                            >
+                              Start
+                            </button>
+                            <button
+                              onClick={() => handleStopAgent(agent.id)}
+                              className="cursor-pointer px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-500/10 dark:hover:bg-red-500/20 dark:text-red-400 text-xs rounded border border-red-200 dark:border-red-500/20 transition-colors"
+                            >
+                              Stop
+                            </button>
+                          </>
+                        )}
 
-                      {(agent.state === "Unprocessed" ||
-                        agent.state === "Unknown" ||
-                        agent.state === "Ready") && (
+                        {(agent.state === "Unprocessed" ||
+                          agent.state === "Unknown" ||
+                          agent.state === "Ready") && (
+                          <button
+                            onClick={() => handleProcessAgent(agent.id)}
+                            className="cursor-pointer px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 dark:text-blue-400 text-xs rounded border border-blue-200 dark:border-blue-500/20 transition-colors"
+                          >
+                            Process
+                          </button>
+                        )}
+
                         <button
-                          onClick={() => handleProcessAgent(agent.id)}
-                          className="cursor-pointer px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 dark:text-blue-400 text-xs rounded border border-blue-200 dark:border-blue-500/20 transition-colors"
+                          onClick={() => handleRemoveAgent(agent.id)}
+                          className="cursor-pointer p-1 bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-white/5 dark:hover:bg-white/10 dark:text-gray-300 text-xs rounded border border-gray-300 dark:border-white/10 transition-colors flex items-center justify-center"
+                          title="Remove"
                         >
-                          Process
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                          </svg>
                         </button>
-                      )}
-
-                      <button
-                        onClick={() => handleRemoveAgent(agent.id)}
-                        className="cursor-pointer p-1 bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-white/5 dark:hover:bg-white/10 dark:text-gray-300 text-xs rounded border border-gray-300 dark:border-white/10 transition-colors flex items-center justify-center"
-                        title="Remove"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M18 6 6 18" />
-                          <path d="m6 6 12 12" />
-                        </svg>
-                      </button>
+                      </div>
                     </div>
-                  </div>
-                ))
-              )}
+                  ))
+                )}
               </div>
             </div>
           </div>
