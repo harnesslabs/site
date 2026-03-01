@@ -23,13 +23,11 @@ vietoris_web/
 ## Quick Start
 
 1. **Build WASM module**:
-
    ```bash
    wasm-pack build --target web
    ```
 
 2. **Start the server**:
-
    ```bash
    cargo run --bin server
    ```
@@ -51,4 +49,4 @@ The project uses target-specific dependencies:
 3. Adjust the epsilon slider to see how the complex changes
 4. Watch as triangles form when three points are within epsilon distance
 
-The demo showcases how `cova` computes Vietoris-Rips complexes in real-time!
+The demo showcases how `cova` computes Vietoris-Rips complexes in real-time! 
