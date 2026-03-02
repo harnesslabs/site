@@ -1,0 +1,20 @@
+{
+  "name": "leader",
+  "type": "module",
+  "collaborators": [
+    "Harness Labs"
+  ],
+  "description": "Leader-Follower Simulation Demo using arbiter",
+  "version": "0.1.0",
+  "license": "AGPL-3.0",
+  "files": [
+    "leader_bg.wasm",
+    "leader.js",
+    "leader.d.ts"
+  ],
+  "main": "leader.js",
+  "types": "leader.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

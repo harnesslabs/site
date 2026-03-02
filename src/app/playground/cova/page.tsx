@@ -53,7 +53,8 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
     if (!ctx) return;
 
     try {
-      demo.render(ctx);
+      const isDark = document.documentElement.classList.contains("dark");
+      demo.render(ctx, isDark);
       setComplexStats(demo.get_complex_stats());
     } catch (error) {
       console.error("Render error:", error);
@@ -106,9 +107,22 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
 
     resizeObserver.observe(wrapperElement);
 
+    const themeObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          drawDemo();
+        }
+      });
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     return () => {
       resizeObserver.unobserve(wrapperElement);
       resizeObserver.disconnect();
+      themeObserver.disconnect();
     };
   }, [isWasmInitialized, VietorisRipsDemo, demo, setDemo, setEpsilon, drawDemo]);
 
@@ -191,23 +205,25 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
     <div className="flex flex-col gap-8 items-center justify-center">
       <div className="text-sm">Vietoris-Rips Complex</div>
       <div className="flex flex-col lg:flex-row gap-4 items-start justify-center w-full px-4">
-        <div
-          ref={canvasWrapperRef}
-          className="flex-grow w-full h-[500px] border border-gray-200 rounded-md overflow-hidden bg-white"
-        >
-          <canvas
-            id="canvas"
-            ref={canvasRef}
-            // width={600}
-            // height={498}
-            className="cursor-crosshair block"
-          />
+        {/* Main Canvas Area */}
+        <div className="flex-grow w-full">
+          <div
+            ref={canvasWrapperRef}
+            className="w-full h-[650px] border border-gray-200 dark:border-white/10 rounded-md overflow-hidden bg-white dark:bg-black/40 dark:backdrop-blur-md shadow-sm"
+          >
+            <canvas id="canvas" ref={canvasRef} className="cursor-crosshair block" />
+          </div>
         </div>
-        <div className="flex flex-col gap-6 w-full lg:w-72 p-6 border border-gray-200 rounded-md bg-white h-[500px] flex-shrink-0">
+
+        {/* Sidebar Controls */}
+        <div className="flex flex-col gap-6 w-full lg:w-[420px] p-6 border border-gray-200 dark:border-white/10 rounded-md bg-white dark:bg-black/40 dark:backdrop-blur-md h-[650px] flex-shrink-0 shadow-sm">
+          {/* Global Controls */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-medium text-gray-700 tracking-wider">Distance Threshold</h3>
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">
+              Distance Threshold
+            </h3>
             <div className="flex flex-col gap-2 items-start">
-              <label htmlFor="epsilonSlider" className="text-sm text-gray-600">
+              <label htmlFor="epsilonSlider" className="text-sm text-gray-600 dark:text-gray-400">
                 Epsilon (ε)
               </label>
               <input
@@ -218,45 +234,58 @@ function Demo({ cova }: { cova: CovaWasmExport }) {
                 max="150"
                 value={epsilon}
                 onChange={handleEpsilonChange}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gray-700"
+                className="w-full h-2 bg-gray-200 dark:bg-white/20 rounded-lg appearance-none cursor-pointer accent-gray-700 dark:accent-gray-300"
               />
-              <div className="self-center text-lg font-medium text-gray-800 mt-1">{epsilon}</div>
+              <div className="self-center text-lg font-medium text-gray-800 dark:text-gray-200 mt-1">
+                {epsilon}
+              </div>
             </div>
-            <div className="text-xs text-gray-500 p-3 border border-gray-200 rounded-sm bg-gray-50 text-center">
+            <div className="text-xs text-gray-600 dark:text-gray-400 p-3 border border-gray-200 dark:border-white/10 rounded-sm bg-gray-50 dark:bg-white/5 text-center mt-2">
               Gray circles show the ε-neighborhood around each point
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-medium text-gray-700 tracking-wider">Complex Statistics</h3>
-            <div className="bg-gray-50 border border-gray-200 rounded-sm">
-              <div className="flex justify-between items-center p-3 border-b border-gray-200">
-                <span className="text-sm text-gray-600">Vertices (0-simplices)</span>
-                <span className="text-sm font-semibold text-gray-800">
-                  {complexStats?.vertices ?? 0}
-                </span>
-              </div>
-              <div className="flex justify-between items-center p-3 border-b border-gray-200">
-                <span className="text-sm text-gray-600">Edges (1-simplices)</span>
-                <span className="text-sm font-semibold text-gray-800">
-                  {complexStats?.edges ?? 0}
-                </span>
-              </div>
-              <div className="flex justify-between items-center p-3">
-                <span className="text-sm text-gray-600">Triangles (2-simplices)</span>
-                <span className="text-sm font-semibold text-gray-800">
-                  {complexStats?.triangles ?? 0}
-                </span>
-              </div>
             </div>
           </div>
 
           <button
             onClick={handleReset}
-            className="w-full py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-sm"
+            className="cursor-pointer w-full py-2 px-4 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-gray-300 border border-gray-200 dark:border-white/10 rounded-md hover:bg-gray-200 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-sm transition-all"
           >
             Clear Points
           </button>
+
+          {/* Statistics Panel */}
+          <div className="flex flex-col gap-3 h-full min-h-0">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-200 tracking-wider">
+              Complex Statistics
+            </h3>
+            <div className="w-full border border-gray-200 dark:border-white/10 rounded-sm bg-white dark:bg-transparent overflow-hidden flex flex-col min-h-0 flex-grow">
+              <div className="overflow-y-auto w-full p-2 space-y-2 h-[100px] flex-grow">
+                <div className="flex justify-between items-center p-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors gap-2">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Vertices (0-simplices)
+                  </span>
+                  <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                    {complexStats?.vertices ?? 0}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center p-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors gap-2">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Edges (1-simplices)
+                  </span>
+                  <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                    {complexStats?.edges ?? 0}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center p-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors gap-2">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Triangles (2-simplices)
+                  </span>
+                  <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                    {complexStats?.triangles ?? 0}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
