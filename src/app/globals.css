@@ -115,3 +115,79 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Blog prose customizations */
+.prose {
+  --tw-prose-body: hsl(var(--foreground));
+  --tw-prose-headings: hsl(var(--foreground));
+  --tw-prose-links: hsl(var(--foreground));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-counters: hsl(var(--muted-foreground));
+  --tw-prose-bullets: hsl(var(--muted-foreground));
+  --tw-prose-hr: hsl(var(--border));
+  --tw-prose-quotes: hsl(var(--foreground));
+  --tw-prose-quote-borders: hsl(var(--border));
+  --tw-prose-captions: hsl(var(--muted-foreground));
+  --tw-prose-code: hsl(var(--foreground));
+  --tw-prose-th-borders: hsl(var(--border));
+  --tw-prose-td-borders: hsl(var(--border));
+}
+
+.prose code:not(pre code) {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.prose code:not(pre code)::before,
+.prose code:not(pre code)::after {
+  content: none;
+}
+
+/* Code blocks */
+.prose pre {
+  @apply border border-border rounded-lg overflow-x-auto;
+}
+
+.prose pre > code {
+  @apply font-mono text-sm leading-relaxed;
+  font-family: var(--font-red-hat-mono), ui-monospace, monospace;
+}
+
+/* Shiki dual-theme: show the correct theme based on light/dark mode */
+.prose pre code {
+  background: transparent;
+}
+
+html:not(.dark) .shiki,
+html:not(.dark) .shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+.prose .shiki {
+  @apply rounded-lg;
+}
+
+/* KaTeX display math */
+.prose .katex-display {
+  @apply overflow-x-auto py-4;
+}
+
+/* Tables */
+.prose table {
+  @apply border-collapse w-full;
+}
+
+.prose th {
+  @apply bg-muted font-semibold;
+}
+
+.prose th,
+.prose td {
+  @apply border border-border px-4 py-2 text-left;
+}
